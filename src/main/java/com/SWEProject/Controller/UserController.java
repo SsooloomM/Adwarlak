@@ -2,6 +2,8 @@ package com.SWEProject.Controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -59,7 +61,7 @@ public class UserController {
 			if(!addShopOwner(model, user)) {
 				return "error";
 			}
-			return "Shop Owner Home";
+			return "ShopOwnerHome";
 		}
 		else {
 			System.out.println("Bayz");
@@ -108,13 +110,13 @@ public class UserController {
 			if(!getShopOwner(model, user)) {
 				return "error";
 			}
-			return "Shop Owner Home";
+			return "ShopOwnerHome";
 		}
 		else if(user.getType().equals("admin")) {
 			if(!getAdmin(model, user)) {
 				return "error";
 			}
-			return "admin Home";
+			return "Admin Home";
 		}
 		else {
 			System.out.println("Bayz");

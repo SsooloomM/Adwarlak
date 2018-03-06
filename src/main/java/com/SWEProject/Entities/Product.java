@@ -19,6 +19,7 @@ public class Product {
 	private float lower;
 	private float upper;
 	private String category;
+	private String type;   // online or offline
 	
 	@ManyToMany(mappedBy="products")
 	private Set<Store> stores;
@@ -31,16 +32,18 @@ public class Product {
 		this.upper = -1;
 		this.category = "";
 		this.stores = new HashSet<Store>();
+		this.type = "";
 	}
 
 
-	public Product(String name, float lower, float upper, String category, Set<Store> stores) {
+	public Product(String name, float lower, float upper, String category, Set<Store> stores, String type) {
 		super();
 		this.name = name;
 		this.lower = lower;
 		this.upper = upper;
 		this.category = category;
 		this.stores = stores;
+		this.type = type;
 	}
 
 
@@ -101,6 +104,16 @@ public class Product {
 
 	public void setStores(Set<Store> stores) {
 		this.stores = stores;
+	}
+
+
+	public String getType() {
+		return type;
+	}
+
+
+	public void setType(String type) {
+		this.type = type;
 	}
 
 }

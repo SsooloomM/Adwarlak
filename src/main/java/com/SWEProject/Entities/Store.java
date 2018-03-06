@@ -23,6 +23,8 @@ public class Store {
 	private String type;
 	private String location;
 	private String shopOwnerName;
+	private boolean onSystem;
+	
 	@ManyToMany(cascade=CascadeType.ALL)
 	@JoinTable(name="StoreProducts", joinColumns = @JoinColumn(name="Store_id", referencedColumnName="id"), inverseJoinColumns = @JoinColumn(name="Product_id", referencedColumnName="id"))
 	private Set<Product> products;
@@ -33,24 +35,18 @@ public class Store {
 		this.type = "";
 		this.location = "";
 		this.shopOwnerName = "";
+		this.onSystem = false;
 		this.products = new HashSet<Product>();  // hena fy price kman
 	}
 	
-	public Store(String name, String type, String location, String shopOwnerName, Set<Product> products) {
+	public Store(String name, String type, String location, String shopOwnerName,boolean onSystem ,Set<Product> products) {
 		super();
 		this.name = name;
 		this.type = type;
 		this.location = location;
 		this.shopOwnerName = shopOwnerName;
+		this.onSystem = onSystem;
 		this.products = products;
-	}
-
-	public Integer getId() {
-		return id;
-	}
-
-	public void setId(Integer id) {
-		this.id = id;
 	}
 
 	public String getName() {
@@ -92,6 +88,14 @@ public class Store {
 	@ManyToMany(cascade=CascadeType.ALL)        /////////    3ayzen nshof ayh da
 	public void setProducts(Set<Product> products) {
 		this.products = products;
+	}
+
+	public boolean isOnSystem() {
+		return onSystem;
+	}
+
+	public void setOnSystem(boolean onSystem) {
+		this.onSystem = onSystem;
 	}
 	
 

@@ -5,7 +5,7 @@
 <title>Add Product</title>
 </head>
 <body>
-	<form method="post" th:action="@{/add product to system}" th:object="${product}" th:value="${admin}">
+	<form method="post" th:action="@{/add product to system}" th:object="${product}">
 		<input type="text" th:field="*{name}" placeholder="Product Name" />
 		<br /><br />
 		Price: <br />
@@ -13,6 +13,10 @@
 		<input type="number" th:field="*{upper}" placeholder="Upper" />
 		<br /><br />
 		<input type="text" th:field="*{category}" placeholder="Category" />
+		<select th:field="*{type}">
+			<option value="online">Online</option>
+			<option value="offline">Offline</option>
+		</select>
 		<br /><br />
 		
 		<input type="submit" value="Add" />

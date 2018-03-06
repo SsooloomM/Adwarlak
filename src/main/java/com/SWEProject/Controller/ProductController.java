@@ -18,14 +18,12 @@ public class ProductController {
 	ProductRepository PR;
 	
 	@GetMapping("/add product to system")
-	String showForm(Model model, @ModelAttribute Product product, @ModelAttribute Admin admin) {
-		model.addAttribute("admin", admin);
+	String showForm(Model model, @ModelAttribute Product product) {
 		return "add product to system";
 	}
 	
 	@PostMapping("/add product to system")
-	String addProduct(Model model, @ModelAttribute Product product, @ModelAttribute Admin admin) {
-		model.addAttribute("admin", admin);
+	String addProduct(Model model, @ModelAttribute Product product) {
 		PR.save(product);
 		return "Admin Home";
 	}
