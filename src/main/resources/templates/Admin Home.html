@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>Admin Home</title>
+</head>
+<body>
+	<h1>Ana al Admin yala </h1>
+	<h3> Hi, <span data-th-text="${admin.getUserName()}"></span></h3>
+	<p>There is nothing to do here </p>
+	<a href="/add product to system" th:object="${admin}">Add Product</a>
+	<a href="/Home">Logout</a>
+</body>
+</html>
