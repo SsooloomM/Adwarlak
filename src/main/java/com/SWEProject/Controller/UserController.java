@@ -2,7 +2,7 @@ package com.SWEProject.Controller;
 
 import java.util.List;
 
-import javax.servlet.http.HttpSession;
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -99,21 +99,21 @@ public class UserController {
 	}
 	
 	@PostMapping("/login")
-	public String getUser(Model model, @ModelAttribute User user) {
+	public String getUser(Model model, @ModelAttribute User user, HttpServletRequest session) {
 		if(user.getType().equals("customer")) {
-			if(!getCustomer(model, user)) {
+			if(!getCustomer(model, user, session)) {
 				return "error";
 			}
 			return "Customer Home";
 		}
 		else if(user.getType().equals("shopowner")) {
-			if(!getShopOwner(model, user)) {
+			if(!getShopOwner(model, user, session)) {
 				return "error";
 			}
 			return "ShopOwnerHome";
 		}
 		else if(user.getType().equals("admin")) {
-			if(!getAdmin(model, user)) {
+			if(!getAdmin(model, user, session)) {
 				return "error";
 			}
 			return "Admin Home";
@@ -124,7 +124,7 @@ public class UserController {
 		}
 	}
 	
-	public boolean getCustomer(Model model, User user) {
+	public boolean getCustomer(Model model, User user, HttpServletRequest session) {
 		List<Customer> found = CR.findByUserName(user.getUserName());
 		if(found.isEmpty()) {
 			return false;
@@ -137,7 +137,7 @@ public class UserController {
 		return true;
 	}
 	
-	public boolean getShopOwner(Model model, User user) {
+	public boolean getShopOwner(Model model, User user, HttpServletRequest session) {
 		List<ShopOwner> found = SOR.findByUserName(user.getUserName());
 		if(found.isEmpty()) {
 			return false;
@@ -147,9 +147,10 @@ public class UserController {
 			return false;
 		}
 		model.addAttribute("shopOwner", found.get(0));
+		session.getSession().setAttribute("shopOwner",found.get(0));
 		return true;
 	}
-	public boolean getAdmin(Model model, User user) {
+	public boolean getAdmin(Model model, User user, HttpServletRequest session) {
 		List<Admin> found = AR.findByUserName(user.getUserName());
 		if(found.isEmpty()) {
 			return false;
@@ -159,6 +160,8 @@ public class UserController {
 			return false;
 		}
 		model.addAttribute("admin", found.get(0));
+		session.getSession().setAttribute("admin",found.get(0));
+		session.getSession().setAttribute("type","admin");
 		return true;
 	}
 

@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>Shop owner Home</title>
+</head>
+<body>
+
+	<form method="post" th:action="@{/requestStore}" th:object="${store}">
+		<input type="text" th:field="*{name}" placeholder="Name" />
+		<br /><br />
+		<select th:field="*{type}">
+			<option value="online">Online</option>
+			<option value="offline">Offline</option>
+		</select>
+		<br /><br />
+		<input type="text" th:field="*{location}" placeholder="address" />
+		<br /><br />
+		<br /><br />
+		<input type="submit" value="request Store" />
+	</form>
+	
+	<a href="/ShopOwnerHome"> Home </a> <br />
+
+</body>
+</html>

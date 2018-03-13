@@ -5,19 +5,9 @@
 <title>Shop owner Home</title>
 </head>
 <body>
-	<form method="post" th:action="@{/requestStore}" th:object="${store}">
-		<input type="text" th:field="*{name}" placeholder="Name" />
-		<br /><br />
-		<select th:field="*{type}">
-			<option value="online">Online</option>
-			<option value="offline">Offline</option>
-		</select>
-		<br /><br />
-		<input type="text" th:field="*{location}" placeholder="address" />
-		<br /><br />
-		<input type="hidden" value="*{shopOwner.getName()}" th:field="*{shopOwnerName}" placeholder="shop owner name" />
-		<br /><br />
-		<input type="submit" value="request Store" />
-	</form>
+	<h1 data-th-text="${shopOwner.getUserName()}"></h1>
+	<a href="/requestStore">Add Store</a><br />
+	<a href="/showStores">Show Stores</a><br />
+	
 </body>
 </html>

@@ -1,9 +1,14 @@
 package com.SWEProject.Entities;
 
+import java.util.HashSet;
+import java.util.Set;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 
 @Entity
 public class ShopOwner {
@@ -15,16 +20,21 @@ public class ShopOwner {
 	String userName;
 	String password;
 	
+	@OneToMany(cascade = CascadeType.ALL, mappedBy="shopOwner")
+	private Set<Store> stores;
+	
 	public ShopOwner() {
 		// TODO Auto-generated constructor stub
 		this.userName = "";
 		this.password = "";
+		stores = new HashSet<Store>();
 	}
 
 	public ShopOwner(String userName, String password) {
 		super();
 		this.userName = userName;
 		this.password = password;
+		stores = new HashSet<Store>();
 	}
 
 	public String getUserName() {
@@ -37,6 +47,14 @@ public class ShopOwner {
 
 	public String getPassword() {
 		return password;
+	}
+
+	public Set<Store> getStores() {
+		return stores;
+	}
+
+	public void setStores(Set<Store> stores) {
+		this.stores = stores;
 	}
 
 	public void setPassword(String password) {

@@ -11,6 +11,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 @Entity
 public class Store {
@@ -22,7 +24,9 @@ public class Store {
 	private String name;
 	private String type;
 	private String location;
-	private String shopOwnerName;
+	
+	@ManyToOne
+	private ShopOwner shopOwner;
 	private boolean onSystem;
 	
 	@ManyToMany(cascade=CascadeType.ALL)
@@ -34,17 +38,17 @@ public class Store {
 		this.name = "";
 		this.type = "";
 		this.location = "";
-		this.shopOwnerName = "";
+		this.shopOwner = null;
 		this.onSystem = false;
 		this.products = new HashSet<Product>();  // hena fy price kman
 	}
 	
-	public Store(String name, String type, String location, String shopOwnerName,boolean onSystem ,Set<Product> products) {
+	public Store(String name, String type, String location, ShopOwner shopOwner,boolean onSystem ,Set<Product> products) {
 		super();
 		this.name = name;
 		this.type = type;
 		this.location = location;
-		this.shopOwnerName = shopOwnerName;
+		this.shopOwner = shopOwner;
 		this.onSystem = onSystem;
 		this.products = products;
 	}
@@ -52,15 +56,13 @@ public class Store {
 	public String getName() {
 		return name;
 	}
-
 	public void setName(String name) {
 		this.name = name;
 	}
-
+	
 	public String getType() {
 		return type;
 	}
-
 	public void setType(String type) {
 		this.type = type;
 	}
@@ -68,17 +70,15 @@ public class Store {
 	public String getLocation() {
 		return location;
 	}
-
 	public void setLocation(String location) {
 		this.location = location;
 	}
 
-	public String getShopOwnerName() {
-		return shopOwnerName;
+	public ShopOwner getShopOwner() {
+		return shopOwner;
 	}
-
-	public void setShopOwnerName(String shopOwnerName) {
-		this.shopOwnerName = shopOwnerName;
+	public void setShopOwner(ShopOwner shopOwner) {
+		this.shopOwner = shopOwner;
 	}
 
 	public Set<Product> getProducts() {
