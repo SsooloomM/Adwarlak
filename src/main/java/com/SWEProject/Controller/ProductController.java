@@ -1,5 +1,9 @@
 package com.SWEProject.Controller;
 
+import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,14 +21,24 @@ public class ProductController {
 	@Autowired
 	ProductRepository PR;
 	
-	@GetMapping("/add product to system")
+	@GetMapping("/addProduct")
 	String showForm(Model model, @ModelAttribute Product product) {
-		return "add product to system";
+		return "addProduct";
 	}
 	
-	@PostMapping("/add product to system")
-	String addProduct(Model model, @ModelAttribute Product product) {
+	@PostMapping("/addProduct")
+	String addBrand(Model model, @ModelAttribute Product product,HttpServletRequest session) {
+		String type=(String)session.getSession().getAttribute("type");
+		if(type!="admin")
+			if(type=="shopOwner")
+				return "ShopOwnerHome";
+			else
+				return "Customer Home";
+		List<Product> found = PR.findByName(product.getName());
+		if(!found.isEmpty())
+			return "productError";
 		PR.save(product);
+		model.addAttribute("admin",(Admin)session.getSession().getAttribute("admin"));
 		return "Admin Home";
 	}
 

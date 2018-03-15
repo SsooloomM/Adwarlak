@@ -18,6 +18,7 @@ public class Product {
 	private String name;
 	private float lower;
 	private float upper;
+	private String brand;
 	private String category;
 	private String type;   // online or offline
 	
@@ -30,17 +31,19 @@ public class Product {
 		this.name = "";
 		this.lower = -1;
 		this.upper = -1;
+		this.brand="";
 		this.category = "";
 		this.stores = new HashSet<Store>();
 		this.type = "";
 	}
 
 
-	public Product(String name, float lower, float upper, String category, Set<Store> stores, String type) {
+	public Product(String name, float lower, float upper,String brand, String category, Set<Store> stores, String type) {
 		super();
 		this.name = name;
 		this.lower = lower;
 		this.upper = upper;
+		this.brand=brand;
 		this.category = category;
 		this.stores = stores;
 		this.type = type;
@@ -84,6 +87,16 @@ public class Product {
 
 	public void setUpper(float upper) {
 		this.upper = upper;
+	}
+
+
+	public String getBrand() {
+		return brand;
+	}
+
+
+	public void setBrand(String brand) {
+		this.brand = brand;
 	}
 
 
