@@ -12,9 +12,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import com.SWEProject.Entities.Brand;
-import com.SWEProject.Entities.Product;
-import com.SWEProject.Entities.ShopOwner;
-import com.SWEProject.Entities.Store;
 import com.SWEProject.Repositories.BrandRepository;
 
 @Controller

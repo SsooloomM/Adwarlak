@@ -3,26 +3,29 @@ package com.SWEProject.Entities;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 
 @Entity
 public class Product {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
+	@Column(name = "product_id")
 	private Integer id;
 	private String name;
 	private float lower;
 	private float upper;
 	private String category;
 	private String type;   // online or offline
+		
+	@OneToMany(mappedBy = "product")
+	private Set<Store_Products> storeProducts;
 	
-	@ManyToMany(mappedBy="products")
-	private Set<Store> stores;
 	
 	
 	public Product() {
@@ -31,8 +34,8 @@ public class Product {
 		this.lower = -1;
 		this.upper = -1;
 		this.category = "";
-		this.stores = new HashSet<Store>();
 		this.type = "";
+		this.storeProducts = new HashSet<Store_Products>();
 	}
 
 
@@ -42,8 +45,8 @@ public class Product {
 		this.lower = lower;
 		this.upper = upper;
 		this.category = category;
-		this.stores = stores;
 		this.type = type;
+		this.storeProducts = new HashSet<Store_Products>();
 	}
 
 
@@ -96,17 +99,7 @@ public class Product {
 		this.category = category;
 	}
 
-
-	public Set<Store> getStores() {
-		return stores;
-	}
-
-
-	public void setStores(Set<Store> stores) {
-		this.stores = stores;
-	}
-
-
+	
 	public String getType() {
 		return type;
 	}
@@ -114,6 +107,16 @@ public class Product {
 
 	public void setType(String type) {
 		this.type = type;
+	}
+
+
+	public Set<Store_Products> getStoreProducts() {
+		return storeProducts;
+	}
+
+
+	public void setStoreProducts(Set<Store_Products> storeProducts) {
+		this.storeProducts = storeProducts;
 	}
 
 }
