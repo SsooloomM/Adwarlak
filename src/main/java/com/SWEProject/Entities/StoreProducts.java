@@ -11,7 +11,7 @@ import javax.persistence.ManyToOne;
 
 
 @Entity
-public class Store_Products {
+public class StoreProducts {
 	
 	@Id
     @GeneratedValue(strategy= GenerationType.AUTO)
@@ -32,7 +32,7 @@ public class Store_Products {
 	private Integer available;
 	private float price;
 	
-	public Store_Products() {
+	public StoreProducts() {
 		super();
 		this.product = null;
 		this.store = null;
@@ -41,7 +41,7 @@ public class Store_Products {
 		this.available = 0;
 		this.price = 0;
 	}
-	public Store_Products(Product product, Store store, Integer available, float price) {
+	public StoreProducts(Product product, Store store, Integer available, float price) {
 		super();
 		this.product = product;
 		this.store = store;

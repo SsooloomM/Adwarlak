@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import com.SWEProject.Entities.Admin;
 import com.SWEProject.Entities.Product;
 import com.SWEProject.Repositories.ProductRepository;
 
@@ -40,5 +41,4 @@ public class ProductController {
 		model.addAttribute("admin",(Admin)session.getSession().getAttribute("admin"));
 		return "Admin Home";
 	}
-
 }

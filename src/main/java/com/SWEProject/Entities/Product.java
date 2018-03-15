@@ -25,7 +25,7 @@ public class Product {
 	private String type;   // online or offline
 		
 	@OneToMany(mappedBy = "product")
-	private Set<Store_Products> storeProducts;
+	private Set<StoreProducts> storeProducts;
 	
 	
 	
@@ -37,7 +37,7 @@ public class Product {
 		this.brand="";
 		this.category = "";
 		this.type = "";
-		this.storeProducts = new HashSet<Store_Products>();
+		this.storeProducts = new HashSet<StoreProducts>();
 	}
 
 
@@ -49,7 +49,7 @@ public class Product {
 		this.brand=brand;
 		this.category = category;
 		this.type = type;
-		this.storeProducts = new HashSet<Store_Products>();
+		this.storeProducts = new HashSet<StoreProducts>();
 	}
 
 
@@ -123,12 +123,12 @@ public class Product {
 	}
 
 
-	public Set<Store_Products> getStoreProducts() {
+	public Set<StoreProducts> getStoreProducts() {
 		return storeProducts;
 	}
 
 
-	public void setStoreProducts(Set<Store_Products> storeProducts) {
+	public void setStoreProducts(Set<StoreProducts> storeProducts) {
 		this.storeProducts = storeProducts;
 	}
 

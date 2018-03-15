@@ -28,7 +28,7 @@ public class Store {
 	private boolean onSystem;
 	
 	@OneToMany(mappedBy = "store")
-	private Set<Store_Products> storeProducts;
+	private Set<StoreProducts> storeProducts;
 	
 //	@ManyToMany(cascade=CascadeType.ALL)
 //	@JoinTable(name="StoreProducts", joinColumns = @JoinColumn(name="Store_id", referencedColumnName="id"), inverseJoinColumns = @JoinColumn(name="Product_id", referencedColumnName="id"))
@@ -42,7 +42,7 @@ public class Store {
 		this.shopOwner = null;
 		this.onSystem = false;
 //		this.products = new HashSet<Product>();  // hena fy price kman
-		this.storeProducts = new HashSet<Store_Products>();
+		this.storeProducts = new HashSet<StoreProducts>();
 	}
 	
 	public Store(String name, String type, String location, ShopOwner shopOwner,boolean onSystem ,Set<Product> products) {
@@ -53,7 +53,7 @@ public class Store {
 		this.shopOwner = shopOwner;
 		this.onSystem = onSystem;
 //		this.products = products;
-		this.storeProducts = new HashSet<Store_Products>();
+		this.storeProducts = new HashSet<StoreProducts>();
 	}
 
 	public String getName() {
@@ -109,11 +109,11 @@ public class Store {
 		this.id = id;
 	}
 
-	public Set<Store_Products> getProducts() {
+	public Set<StoreProducts> getProducts() {
 		return storeProducts;
 	}
 
-	public void setProducts(Set<Store_Products> storeProducts) {
+	public void setProducts(Set<StoreProducts> storeProducts) {
 		this.storeProducts = storeProducts;
 	}
 	
