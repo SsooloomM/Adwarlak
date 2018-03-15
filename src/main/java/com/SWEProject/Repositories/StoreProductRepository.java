@@ -10,4 +10,5 @@ import com.SWEProject.Entities.StoreProducts;
 
 public interface StoreProductRepository extends CrudRepository<StoreProducts, Integer>{
 	List<StoreProducts> findByProductAndStore(Product p, Store s);
+	Iterable<StoreProducts> findAll();
 }

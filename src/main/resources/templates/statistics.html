@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>Shop owner Home</title>
+</head>
+<body>
+	
+	<h1 th:text="${session.shopOwner.getUserName()}"> </h1>
+	<div th:each="p : ${products}">
+		<h2 th:text="${p.products.getName()}"></h2>
+		<p> Location: <span th:text="${p.products.getLocation()}"></span></p>
+		<p> Type: <span th:text="${p.products.getType()}"></span></p>
+		<p> Views: <span th:text="${p.views}"></span></p>
+		<p> Sold: <span th:text="${p.solds}"></span></p>
+		<p> Available: <span th:text="${p.available}"></span></p>
+		<p> Price: <span th:text="${p.price}"></span></p>
+	</div>
+</body>
+</html>
