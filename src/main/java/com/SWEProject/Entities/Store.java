@@ -3,14 +3,11 @@ package com.SWEProject.Entities;
 import java.util.HashSet;
 import java.util.Set;
 
-import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
@@ -19,6 +16,7 @@ public class Store {
 	
 	@Id
 	@GeneratedValue(strategy= GenerationType.AUTO)
+	@Column(name = "store_id")
 	private Integer id;
 	
 	private String name;
@@ -29,9 +27,12 @@ public class Store {
 	private ShopOwner shopOwner;
 	private boolean onSystem;
 	
-	@ManyToMany(cascade=CascadeType.ALL)
-	@JoinTable(name="StoreProducts", joinColumns = @JoinColumn(name="Store_id", referencedColumnName="id"), inverseJoinColumns = @JoinColumn(name="Product_id", referencedColumnName="id"))
-	private Set<Product> products;
+	@OneToMany(mappedBy = "store")
+	private Set<Store_Products> storeProducts;
+	
+//	@ManyToMany(cascade=CascadeType.ALL)
+//	@JoinTable(name="StoreProducts", joinColumns = @JoinColumn(name="Store_id", referencedColumnName="id"), inverseJoinColumns = @JoinColumn(name="Product_id", referencedColumnName="id"))
+//	private Set<Product> products;
 	
 	public Store() {
 		// TODO Auto-generated constructor stub
@@ -40,7 +41,8 @@ public class Store {
 		this.location = "";
 		this.shopOwner = null;
 		this.onSystem = false;
-		this.products = new HashSet<Product>();  // hena fy price kman
+//		this.products = new HashSet<Product>();  // hena fy price kman
+		this.storeProducts = new HashSet<Store_Products>();
 	}
 	
 	public Store(String name, String type, String location, ShopOwner shopOwner,boolean onSystem ,Set<Product> products) {
@@ -50,7 +52,8 @@ public class Store {
 		this.location = location;
 		this.shopOwner = shopOwner;
 		this.onSystem = onSystem;
-		this.products = products;
+//		this.products = products;
+		this.storeProducts = new HashSet<Store_Products>();
 	}
 
 	public String getName() {
@@ -81,14 +84,14 @@ public class Store {
 		this.shopOwner = shopOwner;
 	}
 
-	public Set<Product> getProducts() {
-		return products;
-	}
-	
-	@ManyToMany(cascade=CascadeType.ALL)        /////////    3ayzen nshof ayh da
-	public void setProducts(Set<Product> products) {
-		this.products = products;
-	}
+//	public Set<Product> getProducts() {
+//		return products;
+//	}
+//	
+//	@ManyToMany(cascade=CascadeType.ALL)        /////////    3ayzen nshof ayh da
+//	public void setProducts(Set<Product> products) {
+//		this.products = products;
+//	}
 
 	public boolean isOnSystem() {
 		return onSystem;
@@ -96,6 +99,22 @@ public class Store {
 
 	public void setOnSystem(boolean onSystem) {
 		this.onSystem = onSystem;
+	}
+
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
+	public Set<Store_Products> getProducts() {
+		return storeProducts;
+	}
+
+	public void setProducts(Set<Store_Products> storeProducts) {
+		this.storeProducts = storeProducts;
 	}
 	
 
