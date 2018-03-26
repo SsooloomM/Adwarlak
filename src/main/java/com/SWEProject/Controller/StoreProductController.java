@@ -4,6 +4,8 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.SWEProject.Entities.Product;
 import com.SWEProject.Entities.Store;
@@ -18,6 +20,12 @@ public class StoreProductController {
 	
 	public StoreProductController() {
 		
+	}
+	
+	@RequestMapping("/addProductToTheStore/")
+	public String addProduct(@RequestParam (value = "storeId") Integer id) {
+		
+		return "addProductToTheStore"; 
 	}
 	
 	public void newView(StoreProducts sp) {

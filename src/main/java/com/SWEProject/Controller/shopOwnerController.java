@@ -1,5 +1,7 @@
 package com.SWEProject.Controller;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -10,7 +12,7 @@ import com.SWEProject.Entities.ShopOwner;
 @Controller
 public class shopOwnerController {
 
-	private Statistics s = new Statistics();
+//	private Statistics s = new Statistics();
 	
 	@RequestMapping("/ShopOwnerHome")
 	public String home(Model model, @ModelAttribute ShopOwner shopOwner) {
@@ -18,17 +20,20 @@ public class shopOwnerController {
 	}
 	
 	@RequestMapping("/getMaxView")
-	public String getMaxView(Model model) {
-		model.addAttribute("products", s.getMaxViewes());
+	public String getMaxView(Model model, HttpServletRequest session) {
+		Statistics s = new Statistics();
+		model.addAttribute("products", s.getMaxViewes(((ShopOwner)session.getSession().getAttribute("shopOwner")).getId()));
 		return "statistics"; 
 	}
 	@RequestMapping("/getSoldOut")
 	public String getSoldOut(Model model) {
+		Statistics s = new Statistics();
 		model.addAttribute("products", s.getSoldout());
 		return "statistics"; 
 	}
 	@RequestMapping("/getMaxSold")
 	public String getMaxSold(Model model) {
+		Statistics s = new Statistics();
 		model.addAttribute("products", s.getMaxSold());
 		return "statistics"; 
 	}

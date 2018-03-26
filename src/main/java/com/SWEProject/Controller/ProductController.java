@@ -27,7 +27,7 @@ public class ProductController {
 	}
 	
 	@PostMapping("/addProduct")
-	String addBrand(Model model, @ModelAttribute Product product,HttpServletRequest session) {
+	String addProduct(Model model, @ModelAttribute Product product,HttpServletRequest session) {
 		String type=(String)session.getSession().getAttribute("type");
 		if(type!="admin")
 			if(type=="shopOwner")
@@ -37,6 +37,12 @@ public class ProductController {
 		List<Product> found = PR.findByName(product.getName());
 		if(!found.isEmpty())
 			return "productError";
+		
+		System.out.println(product.getId());
+		System.out.println(product.getName());
+		System.out.println(product.getCategory());
+		System.out.println(product.getUpper());
+		System.out.println(product.getType());
 		PR.save(product);
 		model.addAttribute("admin",(Admin)session.getSession().getAttribute("admin"));
 		return "Admin Home";

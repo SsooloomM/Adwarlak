@@ -10,7 +10,7 @@
 		<h2 th:text="${s.getName()}"></h2>
 		<p th:text="${s.getLocation()}"></p>
 		<p th:text="${s.getType()}"></p>
-		<a href="add product to the store?store=${s}">Add Product</a><br />
+		<a th:href="@{/addProductToTheStore/(storeId=${s.getId()})}">Add Product</a><br />
 	</div>
 </body>
 </html>

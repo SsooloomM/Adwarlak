@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>add Brand</title>
+</head>
+<body>
+	<h1 th:text="${session.shopOwner.getUserName()}"> </h1>
+	<div th:each="p : ${products}">
+		<h2 th:text="${p.getName()}"></h2>
+		Lower: <p th:text="${p.getLower()}"></p>
+		Upper: <p th:text="${p.getUpper()"></p>
+		<p th:text="${p.getType()}"></p>
+		<a th:href="@{/addProductToTheStore/(storeId=${s.getId()})}">Add</a><br />
+	</div>
+</body>
+</html>

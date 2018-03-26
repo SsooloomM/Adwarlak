@@ -13,9 +13,9 @@ import javax.persistence.OneToMany;
 @Entity
 public class Product {
 
+	@Column(name = "product_id")
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
-	@Column(name = "product_id")
 	private Integer id;
 	private String name;
 	private float lower;
