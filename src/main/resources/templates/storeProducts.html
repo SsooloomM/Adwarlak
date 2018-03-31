@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>Store Products</title>
+</head>
+<body>
+	<div th:each="p : ${products}">
+		<p th:text="${p.getProduct().getName()}"></p>
+		<p th:text="${p.getViews()}"></p>
+		<p th:text="${p.getSolds()}"></p>
+		<p th:text="${p.getAvailable()}"></p>
+	</div>
+</body>
+</html>

@@ -46,4 +46,11 @@ public class StoreController {
 		model.addAttribute("stores", SR.findByShopOwner(shopOwner));
 		return "showStores";
 	}
+	
+	@RequestMapping("/showAllStores")
+	public String showAllStores(Model model) {
+		model.addAttribute("stores", SR.findAll());
+		return "showAllStores";
+	}
+	
 }
