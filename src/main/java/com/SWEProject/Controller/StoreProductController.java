@@ -48,10 +48,10 @@ public class StoreProductController {
 		return SPR.findByProductAndStore(p, s);
 	}
 	
-	@RequestMapping("/storeProducts")
-	public String showAllProducts(Model model, @RequestParam(value = "storeID")Integer id)
+	@RequestMapping("/storeProducts/")
+	public String showAllProducts(Model model, @RequestParam("storeID")Integer id)
 	{
 		model.addAttribute("products", SPR.findByid(id));
-		return "storeProducts";
+		return "redirect:/storeProducts";
 	}
 }
