@@ -1,0 +1,31 @@
+<div class="forms">
+<form name="logIn" #f1="ngForm" (ngSubmit)="logIn(f1)">
+	<h3>Log in</h3><br />
+	<input type="text" name="userName" [(ngModel)]="f1.name" placeholder="User Name" required />
+	<input type="password" name="password" [(ngModel)]="f1.pass" placeholder="Password" required />
+	<div class="type">
+		<h4>Type</h4>
+		<select name="type" [(ngModel)]="loginType" (ngModelChange)="loginTypeChanged()">
+			<option value="admin">Admin</option>
+			<option value="shopOwner">Shop Owner</option>
+			<option value="customer">Customer</option>
+		</select>
+	</div>
+	<input type="submit" value="Log in"/>
+</form>
+
+<form name="register" #f2="ngForm" (ngSubmit)="register(f2)">
+	<h3>Register</h3><br />
+	<input type="text" name="userName" [(ngModel)]="f2.name" placeholder="User Name" required />
+	<input type="password" name="password" [(ngModel)]="f2.pass" placeholder="Password" required />
+	<div class="type">
+		<h4>Type</h4>
+		<select name="type" [(ngModel)]="registerType" (ngModelChange)="registerTypeChanged()">
+			<option value="shopOwner">Shop Owner</option>
+			<option value="customer">Customer</option>
+		</select>
+	</div>
+	<input type="submit" value="Register"/>
+</form>
+
+</div>
