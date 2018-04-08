@@ -3,13 +3,18 @@ package com.SWEProject.Controller;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.websocket.server.PathParam;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import com.SWEProject.Entities.Admin;
 import com.SWEProject.Entities.Customer;
@@ -20,7 +25,7 @@ import com.SWEProject.Repositories.CustomerRepository;
 import com.SWEProject.Repositories.ShopOwnerRepository;
 
 
-@Controller
+@RestController
 public class UserController {
 	
 	@Autowired
@@ -92,6 +97,26 @@ public class UserController {
 	}
 
 	//============= Login ==============================
+	
+	@RequestMapping("/login/customer")
+	@CrossOrigin(origins = "http://localhost:4200")
+	public Customer customerLogin(@PathParam("name") String name, @PathParam("password") String password) {
+		Customer customer = getCustomer2(name);
+		if(customer == null || !customer.getPassword().equals(password)) {
+			return null;
+		}
+		
+		return customer;
+	}
+	
+	public Customer getCustomer2(String name) {
+		List<Customer> found = CR.findByUserName(name);
+		if(found.isEmpty()) {
+			return null;
+		}
+		return found.get(0);
+	}
+
 	
 	@GetMapping("/login")
 	public String loginBadMethod(Model model, @ModelAttribute User user) {

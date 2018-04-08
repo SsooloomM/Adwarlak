@@ -1,0 +1,57 @@
+.forms{
+	display: flex;
+	justify-content: space-around;
+	margin: 80px 0;
+	align-items: stretch;
+}
+form{
+	width: 500px;
+	box-shadow: 1px 1px 2px 0px rgba(0, 0, 0, 0.3);
+	color: #fff;
+	margin: 0 100px;
+	padding: 30px 5%;
+	background-color: #25252d;
+	font-family: fantasy;
+	text-align: left;
+}
+
+form h3{
+	font-size: 50px;
+	text-align: center;
+}
+form h4{
+	font-size: 40px;
+	display: inline-block;
+	align-self: center;
+}
+
+input, select, option{
+	background-color: #394048;
+	border: none;
+	box-shadow: 2px 2px 5px 0px rgba(0, 0, 0, 0.7);
+	font-size: 20px;
+	padding: 10px;
+	outline: none;
+	margin: 10px auto;
+	color: #fff;
+}
+.type{
+	display: flex;
+}
+select{
+	width: 100%;
+	margin-left: 5px;
+}
+input{
+	width: 100%;
+	display: block;
+}
+
+input[type="submit"]{
+	background-color: #e84d87;
+	cursor: pointer;
+}
+
+input[type="submit"]:hover{
+	background-color: #f1377c;	
+}
