@@ -49,6 +49,28 @@ public class UserController {
 	}
 	
 	// ============= Register =============================
+	
+	@RequestMapping("/addUser/customer")
+	@CrossOrigin(origins = "http://localhost:4200")
+	public Customer customerRegister(@PathParam("name") String name, @PathParam("password") String password) {
+		Customer customer = addCustomer2(name, password);
+		if(customer != null) {
+			return customer;
+		}
+		return null;
+	}
+	
+	public Customer addCustomer2(@PathParam("name") String name, @PathParam("password") String password) {
+		List<Customer> found = CR.findByUserName(name);
+		if(found.size()> 0) {
+			return null;
+		}
+		Customer customer = new Customer(name, password);
+		CR.save(customer);
+//		model.addAttribute("customer", customer);
+		return customer;
+	}
+	
 	@GetMapping("/addUser")
 	public String registerBadMethod(Model model, @ModelAttribute User user) {
 		model.addAttribute("user", new User());
