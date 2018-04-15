@@ -9,10 +9,7 @@ import com.SWEProject.Entities.StoreOwner;
 
 public interface StoreRepository extends CrudRepository<Store, Integer> {
 	List<Store> findByName(String name);
-<<<<<<< HEAD
-	List<Store> findByShopOwner(ShopOwner shopOwner);
+	List<Store> findByOwner(StoreOwner storeOwner);
 	List<Store> findAll();
-=======
-	//List<Store> findByShopOwner(StoreOwner storeOwner);
->>>>>>> master
+
 }

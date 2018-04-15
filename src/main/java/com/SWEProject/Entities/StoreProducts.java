@@ -2,49 +2,31 @@ package com.SWEProject.Entities;
 
 import javax.persistence.*;
 
-<<<<<<< HEAD
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
-=======
 import com.SWEProject.Entities.Product;
 import com.SWEProject.Entities.Store;
->>>>>>> master
 
 @Entity
 public class StoreProducts {
-
-	@Id
-<<<<<<< HEAD
-    @GeneratedValue(strategy= GenerationType.AUTO)
-	@Column(name = "STORE_PRODUCT_ID")
-    private Integer id;
 	
 	@ManyToOne(cascade = CascadeType.ALL)
 	@JsonManagedReference
-    @JoinColumn(name = "product_id")
 	private Product product;
 	
 	
 	@ManyToOne(cascade = CascadeType.ALL)
 	@JsonManagedReference
-    @JoinColumn(name = "store_id")
 	private Store store;
 	
-=======
+	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer id;
->>>>>>> master
 	private Integer views;
 	private Integer solds;
 	private Integer available;
 	private float price;
-	
-	@ManyToOne
-	private Store store;
-	
-	@ManyToOne
-	private Product product;
-	
+		
 	public StoreProducts() {
 		this.views = -1;
 		this.solds = -1;

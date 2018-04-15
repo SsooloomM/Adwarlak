@@ -3,15 +3,14 @@ package com.SWEProject.Controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.SWEProject.Entities.Store;
 import com.SWEProject.Entities.User;
+import com.SWEProject.Repositories.StoreRepository;
 import com.SWEProject.Repositories.UserRepository;
 
 
@@ -21,6 +20,8 @@ public class UserController {
 	@Autowired
 	private UserRepository UR;
 	
+	@Autowired
+	private StoreRepository SR;
 	//@Autowired
 	//private CustomerRepository CR;
 	
@@ -66,11 +67,20 @@ public class UserController {
 		if(user == null || !user.getPassword().equals(u.getPassword())) {
 			return null;
 		}
-		
 		return user;
 	}
 	
-	
+	@RequestMapping("/requestStore")
+	public Store requestStore(@RequestBody Store store) {
+		List<Store> found = SR.findByName(store.getName());
+		if(!found.isEmpty())
+		{
+			return null;
+		}
+		store.setOnSystem(false);
+		SR.save(store);
+		return store;
+	}
 	
 //	public Customer addCustomer2(String name, String password) {
 //		List<Customer> found = CR.findByUserName(name);

@@ -19,26 +19,27 @@ public class Store {
 	private String location;
 	private Boolean onSystem;
 	
-	@ManyToOne
-<<<<<<< HEAD
-	@JsonBackReference
-	private ShopOwner shopOwner;
-	private boolean onSystem;
-	
 	@OneToMany(mappedBy = "store")
 	@JsonManagedReference
 	private Set<StoreProducts> storeProducts;
-=======
+
+	public Set<StoreProducts> getStoreProducts() {
+		return storeProducts;
+	}
+
+	public void setStoreProducts(Set<StoreProducts> storeProducts) {
+		this.storeProducts = storeProducts;
+	}
+
+	@ManyToOne
+	@JsonBackReference
 	private User owner;
-	
-	@OneToMany(mappedBy = "store", cascade = CascadeType.ALL)
-	private Set<StoreProducts> products;
->>>>>>> master
 	
 	@ManyToMany(cascade = CascadeType.ALL)
 	private Set<User> collaborators;
 	
 	@OneToMany(mappedBy = "store", cascade = CascadeType.ALL)
+	@JsonManagedReference
 	private Set<History> operations;
 	
 	public Store() {
@@ -47,7 +48,7 @@ public class Store {
 		this.location = "";
 		this.owner = null;
 		this.onSystem = false;
-		this.products = new HashSet<StoreProducts>();
+		this.storeProducts = new HashSet<StoreProducts>();
 		this.collaborators = new HashSet<User>();
 		this.operations = new HashSet<History>();
 	}
@@ -60,7 +61,7 @@ public class Store {
 		this.location = location;
 		this.onSystem = onSystem;
 		this.owner = owner;
-		this.products = products;
+		this.storeProducts = products;
 		this.collaborators = collaborators;
 		this.operations = operations;
 	}
@@ -113,14 +114,7 @@ public class Store {
 		this.owner = owner;
 	}
 
-	public Set<StoreProducts> getProducts() {
-		return products;
-	}
-
-	public void setProducts(Set<StoreProducts> products) {
-		this.products = products;
-	}
-
+	
 	public Set<User> getCollaborators() {
 		return collaborators;
 	}

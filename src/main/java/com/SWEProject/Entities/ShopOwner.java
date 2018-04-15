@@ -22,7 +22,7 @@ public class ShopOwner {
 	String userName;
 	String password;
 	
-	@OneToMany(cascade = CascadeType.ALL, mappedBy="shopOwner")
+	@OneToMany(cascade = CascadeType.ALL, mappedBy="owner")
 	@JsonBackReference
 	private Set<Store> stores;
 	
