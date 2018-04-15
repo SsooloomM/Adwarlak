@@ -5,18 +5,18 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import com.SWEProject.Entities.ShopOwner;
 import com.SWEProject.Entities.Store;
 import com.SWEProject.Repositories.StoreRepository;
 
-@Controller
+@RestController
 public class StoreController {
 
 	@Autowired
@@ -48,9 +48,12 @@ public class StoreController {
 	}
 	
 	@RequestMapping("/showAllStores")
-	public String showAllStores(Model model) {
-		model.addAttribute("stores", SR.findAll());
-		return "showAllStores";
+	public List<Store> showAllStores() {
+		List<Store> stores = SR.findAll();
+		if(stores.size() == 0)
+			return null;
+		
+		return stores;
 	}
 	
 }

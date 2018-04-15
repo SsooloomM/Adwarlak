@@ -11,6 +11,9 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 @Entity
 public class Store {
 	
@@ -24,10 +27,12 @@ public class Store {
 	private String location;
 	
 	@ManyToOne
+	@JsonBackReference
 	private ShopOwner shopOwner;
 	private boolean onSystem;
 	
 	@OneToMany(mappedBy = "store")
+	@JsonManagedReference
 	private Set<StoreProducts> storeProducts;
 	
 //	@ManyToMany(cascade=CascadeType.ALL)

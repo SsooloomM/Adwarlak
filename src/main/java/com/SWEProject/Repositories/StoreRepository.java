@@ -10,4 +10,5 @@ import com.SWEProject.Entities.Store;
 public interface StoreRepository extends CrudRepository<Store, Integer> {
 	List<Store> findByName(String name);
 	List<Store> findByShopOwner(ShopOwner shopOwner);
+	List<Store> findAll();
 }

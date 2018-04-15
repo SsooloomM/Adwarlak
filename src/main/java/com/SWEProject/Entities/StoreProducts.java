@@ -9,6 +9,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 
 @Entity
 public class StoreProducts {
@@ -19,11 +21,13 @@ public class StoreProducts {
     private Integer id;
 	
 	@ManyToOne(cascade = CascadeType.ALL)
+	@JsonManagedReference
     @JoinColumn(name = "product_id")
 	private Product product;
 	
 	
 	@ManyToOne(cascade = CascadeType.ALL)
+	@JsonManagedReference
     @JoinColumn(name = "store_id")
 	private Store store;
 	

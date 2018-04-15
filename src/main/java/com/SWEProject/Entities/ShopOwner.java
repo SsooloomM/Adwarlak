@@ -10,6 +10,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 @Entity
 public class ShopOwner {
 	
@@ -21,6 +23,7 @@ public class ShopOwner {
 	String password;
 	
 	@OneToMany(cascade = CascadeType.ALL, mappedBy="shopOwner")
+	@JsonBackReference
 	private Set<Store> stores;
 	
 	public ShopOwner() {
