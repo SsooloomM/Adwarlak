@@ -3,102 +3,53 @@ package com.SWEProject.Entities;
 import java.util.HashSet;
 import java.util.Set;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 
 @Entity
 public class Store {
-	
+
 	@Id
-	@GeneratedValue(strategy= GenerationType.AUTO)
-	@Column(name = "store_id")
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer id;
-	
 	private String name;
 	private String type;
 	private String location;
+	private Boolean onSystem;
 	
 	@ManyToOne
-	private ShopOwner shopOwner;
-	private boolean onSystem;
+	private User owner;
 	
-	@OneToMany(mappedBy = "store")
-	private Set<StoreProducts> storeProducts;
+	@OneToMany(mappedBy = "store", cascade = CascadeType.ALL)
+	private Set<StoreProducts> products;
 	
-//	@ManyToMany(cascade=CascadeType.ALL)
-//	@JoinTable(name="StoreProducts", joinColumns = @JoinColumn(name="Store_id", referencedColumnName="id"), inverseJoinColumns = @JoinColumn(name="Product_id", referencedColumnName="id"))
-//	private Set<Product> products;
+	@ManyToMany(cascade = CascadeType.ALL)
+	private Set<User> collaborators;
+	
+	@OneToMany(mappedBy = "store", cascade = CascadeType.ALL)
+	private Set<History> operations;
 	
 	public Store() {
-		// TODO Auto-generated constructor stub
 		this.name = "";
 		this.type = "";
 		this.location = "";
-		this.shopOwner = null;
+		this.owner = null;
 		this.onSystem = false;
-//		this.products = new HashSet<Product>();  // hena fy price kman
-		this.storeProducts = new HashSet<StoreProducts>();
+		this.products = new HashSet<StoreProducts>();
+		this.collaborators = new HashSet<User>();
+		this.operations = new HashSet<History>();
 	}
-	
-	public Store(String name, String type, String location, ShopOwner shopOwner,boolean onSystem ,Set<Product> products) {
+
+	public Store(String name, String type, String location, Boolean onSystem, User owner,
+			Set<StoreProducts> products, Set<User> collaborators, Set<History> operations) {
 		super();
 		this.name = name;
 		this.type = type;
 		this.location = location;
-		this.shopOwner = shopOwner;
 		this.onSystem = onSystem;
-//		this.products = products;
-		this.storeProducts = new HashSet<StoreProducts>();
-	}
-
-	public String getName() {
-		return name;
-	}
-	public void setName(String name) {
-		this.name = name;
-	}
-	
-	public String getType() {
-		return type;
-	}
-	public void setType(String type) {
-		this.type = type;
-	}
-
-	public String getLocation() {
-		return location;
-	}
-	public void setLocation(String location) {
-		this.location = location;
-	}
-
-	public ShopOwner getShopOwner() {
-		return shopOwner;
-	}
-	public void setShopOwner(ShopOwner shopOwner) {
-		this.shopOwner = shopOwner;
-	}
-
-//	public Set<Product> getProducts() {
-//		return products;
-//	}
-//	
-//	@ManyToMany(cascade=CascadeType.ALL)        /////////    3ayzen nshof ayh da
-//	public void setProducts(Set<Product> products) {
-//		this.products = products;
-//	}
-
-	public boolean isOnSystem() {
-		return onSystem;
-	}
-
-	public void setOnSystem(boolean onSystem) {
-		this.onSystem = onSystem;
+		this.owner = owner;
+		this.products = products;
+		this.collaborators = collaborators;
+		this.operations = operations;
 	}
 
 	public Integer getId() {
@@ -109,13 +60,68 @@ public class Store {
 		this.id = id;
 	}
 
-	public Set<StoreProducts> getProducts() {
-		return storeProducts;
+	public String getName() {
+		return name;
 	}
 
-	public void setProducts(Set<StoreProducts> storeProducts) {
-		this.storeProducts = storeProducts;
+	public void setName(String name) {
+		this.name = name;
 	}
-	
+
+	public String getType() {
+		return type;
+	}
+
+	public void setType(String type) {
+		this.type = type;
+	}
+
+	public String getLocation() {
+		return location;
+	}
+
+	public void setLocation(String location) {
+		this.location = location;
+	}
+
+	public Boolean getOnSystem() {
+		return onSystem;
+	}
+
+	public void setOnSystem(Boolean onSystem) {
+		this.onSystem = onSystem;
+	}
+
+	public User getOwner() {
+		return owner;
+	}
+
+	public void setOwner(User owner) {
+		this.owner = owner;
+	}
+
+	public Set<StoreProducts> getProducts() {
+		return products;
+	}
+
+	public void setProducts(Set<StoreProducts> products) {
+		this.products = products;
+	}
+
+	public Set<User> getCollaborators() {
+		return collaborators;
+	}
+
+	public void setCollaborators(Set<User> collaborators) {
+		this.collaborators = collaborators;
+	}
+
+	public Set<History> getOperations() {
+		return operations;
+	}
+
+	public void setOperations(Set<History> operations) {
+		this.operations = operations;
+	}
 
 }

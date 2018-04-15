@@ -12,7 +12,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.SWEProject.Entities.ShopOwner;
+import com.SWEProject.Entities.User;
+import com.SWEProject.Entities.StoreOwner;
 import com.SWEProject.Entities.Store;
 import com.SWEProject.Repositories.StoreRepository;
 
@@ -34,16 +35,16 @@ public class StoreController {
 			return "requestStoreError";
 		}
 		store.setOnSystem(false);
-		store.setShopOwner((ShopOwner)session.getSession().getAttribute("shopOwner"));
+		store.setOwner((User)session.getSession().getAttribute("shopOwner"));
 		SR.save(store);
-		model.addAttribute("shopOwner",(ShopOwner)session.getSession().getAttribute("shopOwner"));
+		model.addAttribute("shopOwner",(StoreOwner)session.getSession().getAttribute("shopOwner"));
 		return "ShopOwnerHome";
 	}
 	
 	@RequestMapping("/showStores")
 	public String Showstores(Model model, HttpServletRequest session) {
-		ShopOwner shopOwner = (ShopOwner) session.getSession().getAttribute("shopOwner");
-		model.addAttribute("stores", SR.findByShopOwner(shopOwner));
+		StoreOwner shopOwner = (StoreOwner) session.getSession().getAttribute("shopOwner");
+		//model.addAttribute("stores", SR.findByShopOwner(shopOwner));
 		return "showStores";
 	}
 	

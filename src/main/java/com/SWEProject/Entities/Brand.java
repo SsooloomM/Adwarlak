@@ -1,10 +1,6 @@
 package com.SWEProject.Entities;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-
+import javax.persistence.*;
 
 @Entity
 public class Brand {
@@ -15,19 +11,23 @@ public class Brand {
 	private String name;
 	private String category;
 	
-
 	public Brand() {
 		this.name = "";
 		this.category = "";
 	}
-	public Brand(String name, String category) {
-		this.name = name;
-		this.category = category;
+
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
 	}
 
 	public String getName() {
 		return name;
 	}
+
 	public void setName(String name) {
 		this.name = name;
 	}
@@ -35,6 +35,7 @@ public class Brand {
 	public String getCategory() {
 		return category;
 	}
+
 	public void setCategory(String category) {
 		this.category = category;
 	}
