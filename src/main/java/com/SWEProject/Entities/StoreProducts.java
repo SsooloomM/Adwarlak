@@ -1,21 +1,20 @@
 package com.SWEProject.Entities;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 
+<<<<<<< HEAD
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
+=======
+import com.SWEProject.Entities.Product;
+import com.SWEProject.Entities.Store;
+>>>>>>> master
 
 @Entity
 public class StoreProducts {
-	
+
 	@Id
+<<<<<<< HEAD
     @GeneratedValue(strategy= GenerationType.AUTO)
 	@Column(name = "STORE_PRODUCT_ID")
     private Integer id;
@@ -31,28 +30,37 @@ public class StoreProducts {
     @JoinColumn(name = "store_id")
 	private Store store;
 	
+=======
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private Integer id;
+>>>>>>> master
 	private Integer views;
 	private Integer solds;
 	private Integer available;
 	private float price;
 	
+	@ManyToOne
+	private Store store;
+	
+	@ManyToOne
+	private Product product;
+	
 	public StoreProducts() {
-		super();
-		this.product = null;
+		this.views = -1;
+		this.solds = -1;
+		this.available = -1;
+		this.price = -1;
 		this.store = null;
-		this.views = 0;
-		this.solds = 0;
-		this.available = 0;
-		this.price = 0;
+		this.product = null;
 	}
-	public StoreProducts(Product product, Store store, Integer available, float price) {
-		super();
-		this.product = product;
-		this.store = store;
-		this.views = 0;
-		this.solds = 0;
+
+	public StoreProducts(Integer views, Integer solds, Integer available, float price, Store store, Product product) {
+		this.views = views;
+		this.solds = solds;
 		this.available = available;
 		this.price = price;
+		this.store = store;
+		this.product = product;
 	}
 
 	public Integer getId() {
@@ -61,22 +69,6 @@ public class StoreProducts {
 
 	public void setId(Integer id) {
 		this.id = id;
-	}
-
-	public Product getProduct() {
-		return product;
-	}
-
-	public void setProduct(Product product) {
-		this.product = product;
-	}
-
-	public Store getStore() {
-		return store;
-	}
-
-	public void setStore(Store store) {
-		this.store = store;
 	}
 
 	public Integer getViews() {
@@ -102,10 +94,29 @@ public class StoreProducts {
 	public void setAvailable(Integer available) {
 		this.available = available;
 	}
+
 	public float getPrice() {
 		return price;
 	}
+
 	public void setPrice(float price) {
 		this.price = price;
 	}
+
+	public Store getStore() {
+		return store;
+	}
+
+	public void setStore(Store store) {
+		this.store = store;
+	}
+
+	public Product getProduct() {
+		return product;
+	}
+
+	public void setProduct(Product product) {
+		this.product = product;
+	}
+
 }

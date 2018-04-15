@@ -1,5 +1,5 @@
 package com.SWEProject.Entities;
 
-public class Customer{
-	
+public class StoreOwner{
+
 }

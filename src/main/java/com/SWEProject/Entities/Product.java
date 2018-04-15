@@ -3,133 +3,126 @@ package com.SWEProject.Entities;
 import java.util.HashSet;
 import java.util.Set;
 
-import javax.persistence.Column;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
 @Entity
 public class Product {
 
-	@Column(name = "product_id")
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer id;
 	private String name;
 	private float lower;
 	private float upper;
-	private String brand;
 	private String category;
 	private String type;   // online or offline
-		
-	@OneToMany(mappedBy = "product")
-	private Set<StoreProducts> storeProducts;
+	private boolean onsystem;
+	@ManyToOne
+	private Brand brand;
 	
-	
+	@OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
+	private Set<StoreProducts> stores;
 	
 	public Product() {
-		// TODO Auto-generated constructor stub
 		this.name = "";
 		this.lower = -1;
 		this.upper = -1;
-		this.brand="";
 		this.category = "";
-		this.type = "";
-		this.storeProducts = new HashSet<StoreProducts>();
+		this.type = "";   // online or offline
+		this.brand = null;
+		this.stores = new HashSet<StoreProducts>();
+		this.onsystem = false;
 	}
-
-
-	public Product(String name, float lower, float upper,String brand, String category, Set<Store> stores, String type) {
+	
+	public Product(String name, float lower, float upper, String category, String type, Brand brand,
+			Set<StoreProducts> stores, boolean onsystem) {
 		super();
 		this.name = name;
 		this.lower = lower;
 		this.upper = upper;
-		this.brand=brand;
 		this.category = category;
 		this.type = type;
-		this.storeProducts = new HashSet<StoreProducts>();
+		this.brand = brand;
+		this.stores = stores;
+		this.onsystem = onsystem;
 	}
-
 
 	public Integer getId() {
 		return id;
 	}
 
-
 	public void setId(Integer id) {
 		this.id = id;
 	}
-
 
 	public String getName() {
 		return name;
 	}
 
-
 	public void setName(String name) {
 		this.name = name;
 	}
-
 
 	public float getLower() {
 		return lower;
 	}
 
-
 	public void setLower(float lower) {
 		this.lower = lower;
 	}
-
 
 	public float getUpper() {
 		return upper;
 	}
 
-
 	public void setUpper(float upper) {
 		this.upper = upper;
 	}
-
-
-	public String getBrand() {
-		return brand;
-	}
-
-
-	public void setBrand(String brand) {
-		this.brand = brand;
-	}
-
 
 	public String getCategory() {
 		return category;
 	}
 
-
 	public void setCategory(String category) {
 		this.category = category;
 	}
 
-	
 	public String getType() {
 		return type;
 	}
-
 
 	public void setType(String type) {
 		this.type = type;
 	}
 
-
-	public Set<StoreProducts> getStoreProducts() {
-		return storeProducts;
+	public Brand getBrand() {
+		return brand;
 	}
 
+	public void setBrand(Brand brand) {
+		this.brand = brand;
+	}
 
-	public void setStoreProducts(Set<StoreProducts> storeProducts) {
-		this.storeProducts = storeProducts;
+	public Set<StoreProducts> getStores() {
+		return stores;
+	}
+
+	public void setStores(Set<StoreProducts> stores) {
+		this.stores = stores;
+	}
+
+	public boolean isOnsystem() {
+		return onsystem;
+	}
+
+	public void setOnsystem(boolean onsystem) {
+		this.onsystem = onsystem;
 	}
 
 }
