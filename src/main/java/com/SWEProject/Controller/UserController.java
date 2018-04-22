@@ -8,8 +8,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.SWEProject.Entities.Product;
 import com.SWEProject.Entities.Store;
 import com.SWEProject.Entities.User;
+import com.SWEProject.Repositories.ProductRepository;
 import com.SWEProject.Repositories.StoreRepository;
 import com.SWEProject.Repositories.UserRepository;
 
@@ -22,6 +24,10 @@ public class UserController {
 	
 	@Autowired
 	private StoreRepository SR;
+	
+	@Autowired
+	private ProductRepository PR;
+	
 	//@Autowired
 	//private CustomerRepository CR;
 	
@@ -63,6 +69,7 @@ public class UserController {
 	
 	@RequestMapping("/login")
 	public User login(@RequestBody User u) {
+		
 		User user = getUser(u.getUserName());
 		if(user == null || !user.getPassword().equals(u.getPassword())) {
 			return null;
@@ -71,15 +78,37 @@ public class UserController {
 	}
 	
 	@RequestMapping("/requestStore")
-	public Store requestStore(@RequestBody Store store) {
+	public boolean requestStore(@RequestBody Store store) {
+		
 		List<Store> found = SR.findByName(store.getName());
-		if(!found.isEmpty())
-		{
-			return null;
+		if(!found.isEmpty()) {
+			return false;
 		}
 		store.setOnSystem(false);
 		SR.save(store);
-		return store;
+		return true;
+	}
+	@RequestMapping("/deleteStore")
+	public boolean deleteStore(@RequestBody Store store, User user) {
+		
+		if(user.getStores().contains(store)) {
+			user.getStores().remove(store);
+			return true;
+		}
+		return false;
+	}
+	
+	@RequestMapping("/requestProduct")
+	public boolean requestProduct(@RequestBody Product product) {
+		
+		List<Product> found = PR.findByName(product.getName());
+		if(found.isEmpty()) {
+			
+			product.setOnsystem(false);
+			PR.save(product);
+			return true;
+		}
+		return false;
 	}
 	
 //	public Customer addCustomer2(String name, String password) {

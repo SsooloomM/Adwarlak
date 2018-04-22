@@ -3,10 +3,12 @@ package com.SWEProject.Controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.SWEProject.Entities.Store;
+import com.SWEProject.Entities.User;
 import com.SWEProject.Repositories.StoreRepository;
 
 @RestController
@@ -40,6 +42,10 @@ public class StoreController {
 			return null;
 		
 		return stores;
+	}
+	@RequestMapping("/addOwner")
+	public void addOwner(@RequestBody User owner,@RequestBody Store store ) {
+		store.getCollaborators().add(owner);
 	}
 	
 }

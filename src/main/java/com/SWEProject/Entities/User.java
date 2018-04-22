@@ -20,6 +20,22 @@ public class User {
 	@OneToMany(mappedBy = "owner", cascade = CascadeType.ALL)
 	private Set<Store> stores;
 	
+	public Set<Store> getStores() {
+		return stores;
+	}
+
+	public void setStores(Set<Store> stores) {
+		this.stores = stores;
+	}
+
+	public Set<Store> getOtherStores() {
+		return otherStores;
+	}
+
+	public void setOtherStores(Set<Store> otherStores) {
+		this.otherStores = otherStores;
+	}
+
 	@ManyToMany(mappedBy = "collaborators")
 	private Set<Store> otherStores;
 	

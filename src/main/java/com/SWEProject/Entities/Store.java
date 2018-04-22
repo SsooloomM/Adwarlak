@@ -114,7 +114,6 @@ public class Store {
 		this.owner = owner;
 	}
 
-	
 	public Set<User> getCollaborators() {
 		return collaborators;
 	}
