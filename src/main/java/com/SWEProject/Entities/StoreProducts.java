@@ -2,12 +2,23 @@ package com.SWEProject.Entities;
 
 import javax.persistence.*;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import com.SWEProject.Entities.Product;
 import com.SWEProject.Entities.Store;
 
 @Entity
 public class StoreProducts {
-
+	
+	@ManyToOne(cascade = CascadeType.ALL)
+	@JsonManagedReference
+	private Product product;
+	
+	
+	@ManyToOne(cascade = CascadeType.ALL)
+	@JsonManagedReference
+	private Store store;
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer id;
@@ -15,13 +26,7 @@ public class StoreProducts {
 	private Integer solds;
 	private Integer available;
 	private float price;
-	
-	@ManyToOne
-	private Store store;
-	
-	@ManyToOne
-	private Product product;
-	
+		
 	public StoreProducts() {
 		this.views = -1;
 		this.solds = -1;
