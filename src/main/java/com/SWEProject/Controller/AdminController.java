@@ -26,7 +26,7 @@ public class AdminController {
 	private ProductRepository PR;
 	
 	@RequestMapping("/addProduct")
-	private Product addProduct(@RequestBody Product product) {	
+	public Product addProduct(@RequestBody Product product) {	
 		List<Product> productList=PR.findByName(product.getName());
 		if(!productList.isEmpty()) return null;
 		PR.save(product);
@@ -34,7 +34,7 @@ public class AdminController {
 	}
 	
 	@RequestMapping("/approveProduct")
-	private Product approveProduct(@RequestParam("id") int productId) {
+	public Product approveProduct(@RequestParam("id") int productId) {
 		Product product=PR.findOne(productId);
 		product.setOnsystem(true);
 		PR.save(product);
@@ -46,7 +46,7 @@ public class AdminController {
 	private StoreRepository SR;
 	
 	@RequestMapping("/approveStore")
-	private Store approveStore(@RequestParam("id") int storeId) {
+	public Store approveStore(@RequestParam("id") int storeId) {
 		Store store=SR.findOne(storeId);
 		store.setOnSystem(true);
 		SR.save(store);
