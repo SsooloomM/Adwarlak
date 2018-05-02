@@ -8,12 +8,18 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.SWEProject.Entities.Store;
+import com.SWEProject.Entities.StoreProducts;
 import com.SWEProject.Entities.User;
 import com.SWEProject.Repositories.StoreRepository;
 
+class toAddStore{
+	public User user;
+	public Store store;
+}
+
 @RestController
 public class StoreController {
-
+	
 	@Autowired
 	private StoreRepository SR;
 	
@@ -40,12 +46,34 @@ public class StoreController {
 		List<Store> stores = SR.findAll();
 		if(stores.size() == 0)
 			return null;
-		
 		return stores;
 	}
-	@RequestMapping("/addOwner")
-	public void addOwner(@RequestBody User owner,@RequestBody Store store ) {
-		store.getCollaborators().add(owner);
+//	@RequestMapping("/addOwner")
+//	public void addOwner(@RequestBody User owner,@RequestBody Store store ) {
+//		store.getCollaborators().add(owner);
+//	}
+	
+//	@RequestMapping("/getStoreProducts")
+//	public List<StoreProducts> getStoreProducts(@RequestBody Store s){
+//		
+//		return null;
+//	}
+	
+	@RequestMapping("/requestStore")
+	public boolean requestStore(@RequestBody toAddStore ob) {
+		System.out.println(ob);
+		User user = (User) ob.user;
+		Store store = (Store)ob.store;
+	
+		List<Store> found = SR.findByName(store.getName());
+		if(!found.isEmpty()) {
+			return false;
+		}
+		
+		store.setOnSystem(false);
+		store.setOwner(user);
+		SR.save(store);
+		return true;
 	}
 	
 }

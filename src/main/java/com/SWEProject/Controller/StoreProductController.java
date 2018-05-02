@@ -1,20 +1,23 @@
 package com.SWEProject.Controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import javax.swing.text.View;
+
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 import com.SWEProject.Entities.Product;
 import com.SWEProject.Entities.Store;
 import com.SWEProject.Entities.StoreProducts;
 import com.SWEProject.Repositories.StoreProductRepository;
 
-@Controller
+@RestController
 public class StoreProductController {
 	
 	@Autowired
@@ -28,6 +31,34 @@ public class StoreProductController {
 	public String addProduct(@RequestParam (value = "storeId") Integer id) {
 		
 		return "addProductToTheStore"; 
+	}
+	
+	@RequestMapping("/viewProduct")
+	public void View(@RequestBody Integer id)
+	{
+		StoreProducts sp = SPR.findByid(id);
+		System.out.println(sp.getId() + " " + sp.getViews());
+		newView(sp);
+		System.out.println(sp.getId() + " " + sp.getViews());
+	}
+	
+	@RequestMapping("/buyProduct")
+	public void buy(@RequestBody Integer id)
+	{
+		StoreProducts sp = SPR.findByid(id);
+		bought(sp);
+	}
+	
+	@RequestMapping("/getStoreProducts")
+	public ArrayList<StoreProducts> getStoreProducts(@RequestBody Store s){
+		List<StoreProducts> all = SPR.findAll();
+		ArrayList<StoreProducts> result = new ArrayList<StoreProducts>();
+		for (StoreProducts storeProducts : all) {
+			if(storeProducts.getStore().getId().equals(s.getId()))
+				result.add(storeProducts);
+		}
+		if(result.isEmpty())	return null;
+		else return result;
 	}
 	
 	public void newView(StoreProducts sp) {

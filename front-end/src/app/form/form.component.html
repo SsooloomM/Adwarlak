@@ -5,10 +5,9 @@
 	<input type="password" name="password" [(ngModel)]="f1.pass" placeholder="Password" required />
 	<div class="type">
 		<h4>Type</h4>
-		<select name="type" [(ngModel)]="loginType" (ngModelChange)="loginTypeChanged()">
+		<select name="type" [(ngModel)]="loginType">
 			<option value="admin">Admin</option>
-			<option value="shopOwner">Shop Owner</option>
-			<option value="customer">Customer</option>
+			<option value="user">User</option>
 		</select>
 	</div>
 	<input type="submit" value="Log in"/>
@@ -18,13 +17,6 @@
 	<h3>Register</h3><br />
 	<input type="text" name="userName" [(ngModel)]="f2.name" placeholder="User Name" required />
 	<input type="password" name="password" [(ngModel)]="f2.pass" placeholder="Password" required />
-	<div class="type">
-		<h4>Type</h4>
-		<select name="type" [(ngModel)]="registerType" (ngModelChange)="registerTypeChanged()">
-			<option value="shopOwner">Shop Owner</option>
-			<option value="customer">Customer</option>
-		</select>
-	</div>
 	<input type="submit" value="Register"/>
 </form>
 

@@ -1,9 +1,16 @@
 package com.SWEProject.Entities;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
-import javax.persistence.*;
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
+
 
 @Entity
 public class User {
@@ -14,45 +21,45 @@ public class User {
 	private String userName;
 	private String password;
 	
-	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
-	private Set<History> operations;
+	@OneToMany(cascade= CascadeType.ALL)
+	private List<History> operations;
+
+	@OneToMany(cascade= CascadeType.ALL)
+	private List<Store> stores;
 	
-	@OneToMany(mappedBy = "owner", cascade = CascadeType.ALL)
-	private Set<Store> stores;
-	
-	public Set<Store> getStores() {
+	public List<Store> getStores() {
 		return stores;
 	}
 
-	public void setStores(Set<Store> stores) {
+	public void setStores(ArrayList<Store> stores) {
 		this.stores = stores;
 	}
 
-	public Set<Store> getOtherStores() {
+	public List<Store> getOtherStores() {
 		return otherStores;
 	}
 
-	public void setOtherStores(Set<Store> otherStores) {
+	public void setOtherStores(ArrayList<Store> otherStores) {
 		this.otherStores = otherStores;
 	}
 
-	@ManyToMany(mappedBy = "collaborators")
-	private Set<Store> otherStores;
+	@ManyToMany
+	private List<Store> otherStores;
 	
 	public User() {
 		this.userName = "";
 		this.password = "";
-		this.operations = new HashSet<History>();
-		this.stores = new HashSet<Store>();
-		this.otherStores = new HashSet<Store>();
+		this.operations = new ArrayList<History>();
+		this.stores = new ArrayList<Store>();
+		this.otherStores = new ArrayList<Store>();
 	}
 	
 	public User(String userName, String password) {
 		this.userName = userName;
 		this.password = password;
-		this.operations = new HashSet<History>();
-		this.stores = new HashSet<Store>();
-		this.otherStores = new HashSet<Store>();
+		this.operations = new ArrayList<History>();
+		this.stores = new ArrayList<Store>();
+		this.otherStores = new ArrayList<Store>();
 	}
 
 	public Integer getId() {
@@ -79,11 +86,11 @@ public class User {
 		this.password = password;
 	}
 
-	public Set<History> getOperations() {
+	public List<History> getOperations() {
 		return operations;
 	}
 
-	public void setOperations(Set<History> operations) {
+	public void setOperations(ArrayList<History> operations) {
 		this.operations = operations;
 	}
 
