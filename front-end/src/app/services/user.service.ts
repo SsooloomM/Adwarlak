@@ -49,14 +49,17 @@ export class UserService {
     return this.h.post(url, "");
   }
 
-  view(s_id){
+  view(s){
     const url = "/viewProduct";
-    this.h.post(url, {id: s_id}); 
+    this.h.post(url, {
+      id: s.id,
+      name: s.name
+    });
   }
 
-  buy(s_id){
+  buy(s){
     const url = "/buyProduct";
-    this.h.post(url, {id: s_id}); 
+    this.h.post(url, s); 
   }
 
 }

@@ -21,7 +21,7 @@ class toAddStore{
 public class StoreController {
 	
 	@Autowired
-	private StoreRepository SR;
+	private StoreRepository storeRepository;
 	
 //	@GetMapping("/requestStore")
 //	public String requestBadMethod(Model model, @ModelAttribute Store store) {
@@ -43,7 +43,7 @@ public class StoreController {
 //	
 	@RequestMapping("/showAllStores")
 	public List<Store> showAllStores() {
-		List<Store> stores = SR.findAll();
+		List<Store> stores = storeRepository.findAll();
 		if(stores.size() == 0)
 			return null;
 		return stores;
@@ -59,20 +59,30 @@ public class StoreController {
 //		return null;
 //	}
 	
+	@RequestMapping("/approveStore")
+	public boolean approveStore(@RequestBody Store s) {
+		s = storeRepository.findOne(s.getId());
+		if(s == null) {
+			return false;
+		}
+		s.setOnSystem(true);
+		storeRepository.save(s);
+		return true;
+	}
+	
 	@RequestMapping("/requestStore")
 	public boolean requestStore(@RequestBody toAddStore ob) {
-		System.out.println(ob);
 		User user = (User) ob.user;
 		Store store = (Store)ob.store;
 	
-		List<Store> found = SR.findByName(store.getName());
+		List<Store> found = storeRepository.findByName(store.getName());
 		if(!found.isEmpty()) {
 			return false;
 		}
 		
 		store.setOnSystem(false);
 		store.setOwner(user);
-		SR.save(store);
+		storeRepository.save(store);
 		return true;
 	}
 	

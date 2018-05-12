@@ -46,11 +46,11 @@ export class CustomerComponent implements OnInit {
   }
 
   viewProduct(storeProduct){
-    this.service.view(storeProduct.id);
+    this.service.view(storeProduct);
   }
 
   buyProduct(storeProduct){
-    this.service.buy(storeProduct.id);
+    this.service.buy(storeProduct);
   }
 
   getStores() {

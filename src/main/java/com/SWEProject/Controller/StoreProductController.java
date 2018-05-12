@@ -34,18 +34,18 @@ public class StoreProductController {
 	}
 	
 	@RequestMapping("/viewProduct")
-	public void View(@RequestBody Integer id)
+	public void View(@RequestBody StoreProducts s)
 	{
-		StoreProducts sp = SPR.findByid(id);
+		StoreProducts sp = SPR.findByid(s.getId());
 		System.out.println(sp.getId() + " " + sp.getViews());
 		newView(sp);
 		System.out.println(sp.getId() + " " + sp.getViews());
 	}
 	
 	@RequestMapping("/buyProduct")
-	public void buy(@RequestBody Integer id)
+	public void buy(@RequestBody StoreProducts s)
 	{
-		StoreProducts sp = SPR.findByid(id);
+		StoreProducts sp = SPR.findByid(s.getId());
 		bought(sp);
 	}
 	
