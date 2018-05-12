@@ -8,14 +8,20 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.SWEProject.Entities.Store;
+import com.SWEProject.Entities.StoreProducts;
 import com.SWEProject.Entities.User;
 import com.SWEProject.Repositories.StoreRepository;
 
+class toAddStore{
+	public User user;
+	public Store store;
+}
+
 @RestController
 public class StoreController {
-
+	
 	@Autowired
-	private StoreRepository SR;
+	private StoreRepository storeRepository;
 	
 //	@GetMapping("/requestStore")
 //	public String requestBadMethod(Model model, @ModelAttribute Store store) {
@@ -37,15 +43,47 @@ public class StoreController {
 //	
 	@RequestMapping("/showAllStores")
 	public List<Store> showAllStores() {
-		List<Store> stores = SR.findAll();
+		List<Store> stores = storeRepository.findAll();
 		if(stores.size() == 0)
 			return null;
-		
 		return stores;
 	}
-	@RequestMapping("/addOwner")
-	public void addOwner(@RequestBody User owner,@RequestBody Store store ) {
-		store.getCollaborators().add(owner);
+//	@RequestMapping("/addOwner")
+//	public void addOwner(@RequestBody User owner,@RequestBody Store store ) {
+//		store.getCollaborators().add(owner);
+//	}
+	
+//	@RequestMapping("/getStoreProducts")
+//	public List<StoreProducts> getStoreProducts(@RequestBody Store s){
+//		
+//		return null;
+//	}
+	
+	@RequestMapping("/approveStore")
+	public boolean approveStore(@RequestBody Store s) {
+		s = storeRepository.findOne(s.getId());
+		if(s == null) {
+			return false;
+		}
+		s.setOnSystem(true);
+		storeRepository.save(s);
+		return true;
+	}
+	
+	@RequestMapping("/requestStore")
+	public boolean requestStore(@RequestBody toAddStore ob) {
+		User user = (User) ob.user;
+		Store store = (Store)ob.store;
+	
+		List<Store> found = storeRepository.findByName(store.getName());
+		if(!found.isEmpty()) {
+			return false;
+		}
+		
+		store.setOnSystem(false);
+		store.setOwner(user);
+		storeRepository.save(store);
+		return true;
 	}
 	
 }

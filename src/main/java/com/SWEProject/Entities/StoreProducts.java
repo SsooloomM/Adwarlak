@@ -1,22 +1,20 @@
 package com.SWEProject.Entities;
 
-import javax.persistence.*;
-
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-
-import com.SWEProject.Entities.Product;
-import com.SWEProject.Entities.Store;
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 
 @Entity
 public class StoreProducts {
 	
 	@ManyToOne(cascade = CascadeType.ALL)
-	@JsonManagedReference
 	private Product product;
 	
 	
 	@ManyToOne(cascade = CascadeType.ALL)
-	@JsonManagedReference
 	private Store store;
 	
 	@Id

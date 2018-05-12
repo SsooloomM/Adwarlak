@@ -3,10 +3,14 @@ package com.SWEProject.Entities;
 import java.util.HashSet;
 import java.util.Set;
 
-import javax.persistence.*;
-
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 @Entity
 public class Store {
@@ -19,8 +23,7 @@ public class Store {
 	private String location;
 	private Boolean onSystem;
 	
-	@OneToMany(mappedBy = "store")
-	@JsonManagedReference
+	@OneToMany(targetEntity= StoreProducts.class, cascade= CascadeType.ALL)
 	private Set<StoreProducts> storeProducts;
 
 	public Set<StoreProducts> getStoreProducts() {
@@ -32,14 +35,12 @@ public class Store {
 	}
 
 	@ManyToOne
-	@JsonBackReference
 	private User owner;
 	
-	@ManyToMany(cascade = CascadeType.ALL)
+	@ManyToMany(targetEntity = User.class, cascade = CascadeType.ALL)
 	private Set<User> collaborators;
 	
-	@OneToMany(mappedBy = "store", cascade = CascadeType.ALL)
-	@JsonManagedReference
+	@OneToMany(targetEntity = History.class, cascade = CascadeType.ALL)
 	private Set<History> operations;
 	
 	public Store() {

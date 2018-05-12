@@ -17,7 +17,7 @@ import com.SWEProject.Repositories.UserRepository;
 
 
 @RestController
-@CrossOrigin(origins = "http://localhost:8080")
+@CrossOrigin(origins = "http://localhost:4200")
 public class UserController {
 	@Autowired
 	private UserRepository UR;
@@ -27,26 +27,6 @@ public class UserController {
 	
 	@Autowired
 	private ProductRepository PR;
-	
-	//@Autowired
-	//private CustomerRepository CR;
-	
-//	@Autowired
-//	private ShopOwnerRepository SOR;
-//	
-//	@Autowired
-//	private AdminRepository AR;
-//	
-	
-//	@GetMapping("/Home")
-//	public String Home() {
-//		return "Home";
-//	}
-	
-//	@GetMapping("/error")
-//	public String error() {
-//		return "error";
-//	}
 	
 	private User getUser(String name) {
 		List<User> users  = UR.findByUserName(name);
@@ -69,7 +49,7 @@ public class UserController {
 	
 	@RequestMapping("/login")
 	public User login(@RequestBody User u) {
-		
+		System.out.println(u.getUserName());
 		User user = getUser(u.getUserName());
 		if(user == null || !user.getPassword().equals(u.getPassword())) {
 			return null;
@@ -77,17 +57,7 @@ public class UserController {
 		return user;
 	}
 	
-	@RequestMapping("/requestStore")
-	public boolean requestStore(@RequestBody Store store) {
-		
-		List<Store> found = SR.findByName(store.getName());
-		if(!found.isEmpty()) {
-			return false;
-		}
-		store.setOnSystem(false);
-		SR.save(store);
-		return true;
-	}
+	
 	@RequestMapping("/deleteStore")
 	public boolean deleteStore(@RequestBody Store store, User user) {
 		
