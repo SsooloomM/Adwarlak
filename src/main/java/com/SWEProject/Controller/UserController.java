@@ -3,33 +3,23 @@ package com.SWEProject.Controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.SWEProject.Entities.Product;
 import com.SWEProject.Entities.Store;
 import com.SWEProject.Entities.User;
-import com.SWEProject.Repositories.ProductRepository;
-import com.SWEProject.Repositories.StoreRepository;
 import com.SWEProject.Repositories.UserRepository;
 
 
 @RestController
-@CrossOrigin(origins = "http://localhost:4200")
 public class UserController {
-	@Autowired
-	private UserRepository UR;
 	
 	@Autowired
-	private StoreRepository SR;
-	
-	@Autowired
-	private ProductRepository PR;
+	private UserRepository userRepository;
 	
 	private User getUser(String name) {
-		List<User> users  = UR.findByUserName(name);
+		List<User> users  = userRepository.findByUserName(name);
 		if(users.isEmpty()) return null;
 		return users.get(0);
 	}
@@ -41,7 +31,7 @@ public class UserController {
 		User user = getUser(input.getUserName());
 		if(user == null) {
 			user = new User(input.getUserName(), input.getPassword());
-			UR.save(user);
+			userRepository.save(user);
 			return user;
 		}
 		return null;
@@ -57,7 +47,6 @@ public class UserController {
 		return user;
 	}
 	
-	
 	@RequestMapping("/deleteStore")
 	public boolean deleteStore(@RequestBody Store store, User user) {
 		
@@ -66,20 +55,8 @@ public class UserController {
 			return true;
 		}
 		return false;
-	}
+	}	
 	
-	@RequestMapping("/requestProduct")
-	public boolean requestProduct(@RequestBody Product product) {
-		
-		List<Product> found = PR.findByName(product.getName());
-		if(found.isEmpty()) {
-			
-			product.setOnsystem(false);
-			PR.save(product);
-			return true;
-		}
-		return false;
-	}
 	
 //	public Customer addCustomer2(String name, String password) {
 //		List<Customer> found = CR.findByUserName(name);

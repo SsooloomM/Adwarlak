@@ -2,16 +2,12 @@ package com.SWEProject.Controller;
 
 import java.util.List;
 
-import javax.servlet.http.HttpServletRequest;
-
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
+
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.SWEProject.Entities.Admin;
 import com.SWEProject.Entities.Product;
 import com.SWEProject.Repositories.ProductRepository;
 
@@ -19,32 +15,58 @@ import com.SWEProject.Repositories.ProductRepository;
 public class ProductController {
 
 	@Autowired
-	ProductRepository PR;
+	ProductRepository productRepository;
 	
-	@GetMapping("/addProduct")
-	String showForm(Model model, @ModelAttribute Product product) {
-		return "addProduct";
+//	@GetMapping("/addProduct")
+//	String showForm(Model model, @ModelAttribute Product product) {
+//		return "addProduct";
+//	}
+//	
+//	@PostMapping("/addProduct")
+//	String addProduct(Model model, @ModelAttribute Product product,HttpServletRequest session) {
+//		String type=(String)session.getSession().getAttribute("type");
+//		if(type!="admin")
+//			if(type=="shopOwner")
+//				return "ShopOwnerHome";
+//			else
+//				return "Customer Home";
+//		List<Product> found = PR.findByName(product.getName());
+//		if(!found.isEmpty())
+//			return "productError";
+//		
+//		System.out.println(product.getId());
+//		System.out.println(product.getName());
+//		System.out.println(product.getCategory());
+//		System.out.println(product.getUpper());
+//		System.out.println(product.getType());
+//		PR.save(product);
+//		model.addAttribute("admin",(Admin)session.getSession().getAttribute("admin"));
+//		return "Admin Home";
+//	}
+	
+	@RequestMapping("/addProductToSystem")
+	public boolean addProductToSystem(@RequestBody Product product) {
+		
+		List<Product> products = productRepository.findByName(product.getName());
+		if(products.isEmpty()) {
+			
+			product.setOnsystem(true);
+			productRepository.save(product);
+			return true;
+		}
+		return false;
 	}
 	
-	@PostMapping("/addProduct")
-	String addProduct(Model model, @ModelAttribute Product product,HttpServletRequest session) {
-		String type=(String)session.getSession().getAttribute("type");
-		if(type!="admin")
-			if(type=="shopOwner")
-				return "ShopOwnerHome";
-			else
-				return "Customer Home";
-		List<Product> found = PR.findByName(product.getName());
-		if(!found.isEmpty())
-			return "productError";
+	@RequestMapping("/requestProduct")
+	public boolean requestProduct(@RequestBody Product product) {
 		
-		System.out.println(product.getId());
-		System.out.println(product.getName());
-		System.out.println(product.getCategory());
-		System.out.println(product.getUpper());
-		System.out.println(product.getType());
-		PR.save(product);
-		model.addAttribute("admin",(Admin)session.getSession().getAttribute("admin"));
-		return "Admin Home";
+		List<Product> found = productRepository.findByName(product.getName());
+		if(found.isEmpty()) {
+			
+			product.setOnsystem(false);
+			productRepository.save(product);
+			return true;
+		}
+		return false;
 	}
 }

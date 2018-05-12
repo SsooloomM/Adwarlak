@@ -3,8 +3,6 @@ package com.SWEProject.Controller;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.swing.text.View;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -21,7 +19,7 @@ import com.SWEProject.Repositories.StoreProductRepository;
 public class StoreProductController {
 	
 	@Autowired
-	private StoreProductRepository SPR;
+	private StoreProductRepository storeProductRepository;
 	
 	public StoreProductController() {
 		
@@ -36,22 +34,23 @@ public class StoreProductController {
 	@RequestMapping("/viewProduct")
 	public void View(@RequestBody StoreProducts s)
 	{
-		StoreProducts sp = SPR.findByid(s.getId());
+		StoreProducts sp = storeProductRepository.findOne(s.getId());
+
 		System.out.println(sp.getId() + " " + sp.getViews());
 		newView(sp);
 		System.out.println(sp.getId() + " " + sp.getViews());
 	}
-	
+
 	@RequestMapping("/buyProduct")
 	public void buy(@RequestBody StoreProducts s)
 	{
-		StoreProducts sp = SPR.findByid(s.getId());
+		StoreProducts sp = storeProductRepository.findOne(s.getId());
 		bought(sp);
 	}
 	
 	@RequestMapping("/getStoreProducts")
 	public ArrayList<StoreProducts> getStoreProducts(@RequestBody Store s){
-		List<StoreProducts> all = SPR.findAll();
+		List<StoreProducts> all = storeProductRepository.findAll();
 		ArrayList<StoreProducts> result = new ArrayList<StoreProducts>();
 		for (StoreProducts storeProducts : all) {
 			if(storeProducts.getStore().getId().equals(s.getId()))
@@ -73,16 +72,16 @@ public class StoreProductController {
 	}
 	
 	public void save(StoreProducts sp) {
-		this.SPR.save(sp);
+		this.storeProductRepository.save(sp);
 	}
 	
-	public List<StoreProducts> getStoreProducts(Store s, Product p){
-		return SPR.findByProductAndStore(p, s);
+	public ArrayList<StoreProducts> getStoreProducts(Store s, Product p){
+		return storeProductRepository.findByProductAndStore(p, s);
 	}
 	
 	@RequestMapping("/storeProducts/")
 	public String showAllProducts(Model model, @RequestParam("storeID")Integer id) {
-		model.addAttribute("products", SPR.findByid(id));
+		model.addAttribute("products", storeProductRepository.findByid(id));
 		return "redirect:/storeProducts";
 	}
 	

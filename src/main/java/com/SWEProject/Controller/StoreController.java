@@ -11,6 +11,7 @@ import com.SWEProject.Entities.Store;
 import com.SWEProject.Entities.StoreProducts;
 import com.SWEProject.Entities.User;
 import com.SWEProject.Repositories.StoreRepository;
+import com.SWEProject.Repositories.UserRepository;
 
 class toAddStore{
 	public User user;
@@ -20,8 +21,12 @@ class toAddStore{
 @RestController
 public class StoreController {
 	
+
 	@Autowired
 	private StoreRepository storeRepository;
+	
+	@Autowired
+	private UserRepository userRepository;
 	
 //	@GetMapping("/requestStore")
 //	public String requestBadMethod(Model model, @ModelAttribute Store store) {
@@ -29,14 +34,14 @@ public class StoreController {
 //	}
 //	@PostMapping("/requestStore")
 //	public String requestStore(Model model, @ModelAttribute Store store,HttpServletRequest session) {
-//		List<Store> found = SR.findByName(store.getName());
+//		List<Store> found = storeRepository.findByName(store.getName());
 //		if(!found.isEmpty())
 //		{
 //			return "requestStoreError";
 //		}
 //		store.setOnSystem(false);
 //		store.setOwner((User)session.getSession().getAttribute("shopOwner"));
-//		SR.save(store);
+//		storeRepository.save(store);
 //		model.addAttribute("shopOwner",(StoreOwner)session.getSession().getAttribute("shopOwner"));
 //		return "ShopOwnerHome";
 //	}
@@ -48,10 +53,17 @@ public class StoreController {
 			return null;
 		return stores;
 	}
-//	@RequestMapping("/addOwner")
-//	public void addOwner(@RequestBody User owner,@RequestBody Store store ) {
-//		store.getCollaborators().add(owner);
-//	}
+	
+	@RequestMapping("/addCollaborator")
+	public boolean addCollaborator(@RequestBody String collaborator,@RequestBody Store store ) {
+		List<User> users = userRepository.findByUserName(collaborator);
+		if(users.isEmpty()) {
+			return false;
+		}
+		store.getCollaborators().add(users.get(0));
+		storeRepository.save(store);
+		return true;
+	}
 	
 //	@RequestMapping("/getStoreProducts")
 //	public List<StoreProducts> getStoreProducts(@RequestBody Store s){
@@ -69,9 +81,10 @@ public class StoreController {
 		storeRepository.save(s);
 		return true;
 	}
-	
+
 	@RequestMapping("/requestStore")
 	public boolean requestStore(@RequestBody toAddStore ob) {
+		System.out.println(ob);
 		User user = (User) ob.user;
 		Store store = (Store)ob.store;
 	
@@ -84,6 +97,16 @@ public class StoreController {
 		store.setOwner(user);
 		storeRepository.save(store);
 		return true;
+	}
+	
+	@RequestMapping("/deleteStore")
+	public void deleteStore(@RequestBody Store store) {
+		
+		User user = store.getOwner();
+		user.getStores().remove(store);
+		
+		userRepository.save(user);
+		storeRepository.delete(store);
 	}
 	
 }
