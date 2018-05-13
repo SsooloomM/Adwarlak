@@ -44,6 +44,7 @@ public class ProductController {
 //	}
 	
 <<<<<<< HEAD
+<<<<<<< HEAD
 //	@GetMapping("/addProduct")
 //	String showForm(Model model, @ModelAttribute Product product) {
 //		return "addProduct";
@@ -71,6 +72,8 @@ public class ProductController {
 //		return "Admin Home";
 //	}
 =======
+=======
+>>>>>>> c3c6760ba5d1f23e7032899b73033ac639728c12
 	@RequestMapping("/addProductToSystem")
 	public boolean addProductToSystem(@RequestBody Product product) {
 		
@@ -96,5 +99,8 @@ public class ProductController {
 		}
 		return false;
 	}
+<<<<<<< HEAD
 >>>>>>> master
+=======
+>>>>>>> c3c6760ba5d1f23e7032899b73033ac639728c12
 }
