@@ -13,7 +13,16 @@ import org.springframework.web.bind.annotation.RestController;
 import com.SWEProject.Entities.Product;
 import com.SWEProject.Entities.Store;
 import com.SWEProject.Entities.StoreProducts;
+import com.SWEProject.Repositories.ProductRepository;
 import com.SWEProject.Repositories.StoreProductRepository;
+import com.SWEProject.Repositories.StoreRepository;
+
+class toAdd{
+	Store store;
+	Product product;
+	int avail;
+	float price;
+}
 
 @RestController
 public class StoreProductController {
@@ -21,14 +30,14 @@ public class StoreProductController {
 	@Autowired
 	private StoreProductRepository storeProductRepository;
 	
+	@Autowired
+	private ProductRepository productRepository;
+	
+	@Autowired
+	private StoreRepository storeRepository;
+	
 	public StoreProductController() {
 		
-	}
-	
-	@RequestMapping("/addProductToTheStore/")
-	public String addProduct(@RequestParam (value = "storeId") Integer id) {
-		
-		return "addProductToTheStore"; 
 	}
 	
 	@RequestMapping("/viewProduct")
@@ -85,7 +94,15 @@ public class StoreProductController {
 	}
 	
 	@RequestMapping("/addProductToStore")
-	public boolean addProductToStore(@RequestBody Product product, @RequestBody Store store) {
+	public boolean addProductToStore(@RequestBody toAdd data, @RequestBody StoreProducts prpppoduct, @RequestBody Store sssstore) {
+		Product product = (Product) data.product;
+		Store store = (Store) data.store;
+		product = productRepository.findOne(product.getId());
+		store = storeRepository.findOne(store.getId());
+		if(product == null || store == null) {
+			return false;
+		}
+		
 		if(product.isOnsystem()) {
 			StoreProducts sp = new StoreProducts();
 			sp.setProduct(product);
@@ -93,7 +110,15 @@ public class StoreProductController {
 			if(store.getStoreProducts().contains(sp)) {
 				return false;
 			}
+			sp.setViews(0);
+			sp.setSolds(0);
+			sp.setAvailable(data.avail);
+			sp.setPrice(data.price);
+			
 			store.getStoreProducts().add(sp);
+			storeProductRepository.save(sp);
+			storeRepository.save(store);
+			
 			return true;
 		}
 		else
