@@ -7,7 +7,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.SWEProject.Entities.Store;
 import com.SWEProject.Entities.User;
 import com.SWEProject.Repositories.UserRepository;
 
@@ -46,16 +45,6 @@ public class UserController {
 		}
 		return user;
 	}
-	
-	@RequestMapping("/deleteStore")
-	public boolean deleteStore(@RequestBody Store store, User user) {
-		
-		if(user.getStores().contains(store)) {
-			user.getStores().remove(store);
-			return true;
-		}
-		return false;
-	}	
 	
 	
 //	public Customer addCustomer2(String name, String password) {

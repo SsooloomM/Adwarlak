@@ -25,36 +25,31 @@ public class AdminController {
 	@Autowired
 	private ProductRepository PR;
 	
-	@RequestMapping("/addProduct")
-	public Product addProduct(@RequestBody Product product) {	
-		List<Product> productList=PR.findByName(product.getName());
-		if(!productList.isEmpty()) return null;
-		PR.save(product);
-		return product;
-	}
+//	@RequestMapping("/addProduct")
+//	public Product addProduct(@RequestBody Product product) {	
+//		List<Product> productList=PR.findByName(product.getName());
+//		if(!productList.isEmpty()) return null;
+//		PR.save(product);
+//		return product;
+//	}
+//	
+//	@RequestMapping("/approveProduct")
+//	public Product approveProduct(@RequestParam("id") int productId) {
+//		Product product=PR.findOne(productId);
+//		product.setOnsystem(true);
+//		PR.save(product);
+//		return product;
+//	}
+//	
 	
-	@RequestMapping("/approveProduct")
-	public Product approveProduct(@RequestParam("id") int productId) {
-		Product product=PR.findOne(productId);
-		product.setOnsystem(true);
-		PR.save(product);
-		return product;
-	}
-	
-	
-	@Autowired
-	private StoreRepository SR;
-	
-	@RequestMapping("/approveStore")
-	public Store approveStore(@RequestParam("id") int storeId) {
-		Store store=SR.findOne(storeId);
-		store.setOnSystem(true);
-		SR.save(store);
-		return store;
-	}
-	
-	
-	
-	
-	
+//	@Autowired
+//	private StoreRepository SR;
+//	
+//	@RequestMapping("/approveStore")
+//	public Store approveStore(@RequestParam("id") int storeId) {
+//		Store store=SR.findOne(storeId);
+//		store.setOnSystem(true);
+//		SR.save(store);
+//		return store;
+//	}
 }

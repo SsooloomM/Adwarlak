@@ -100,7 +100,36 @@ public class ProductController {
 		return false;
 	}
 <<<<<<< HEAD
+<<<<<<< HEAD
 >>>>>>> master
 =======
 >>>>>>> c3c6760ba5d1f23e7032899b73033ac639728c12
+=======
+	@RequestMapping("/approveProduct")
+	public boolean approveProduct(@RequestBody Product product) {
+		product = productRepository.findOne(product.getId());
+		if(product == null) {
+			return false;
+		}
+		product.setOnsystem(true);
+		productRepository.save(product);
+		return true;
+	}
+	
+	@RequestMapping("/showProducts")
+	public List<Product> showProducts() {
+		List<Product> products=(List<Product>) productRepository.findAll();
+		if(products.size()==0)
+			return null;
+		return products;
+	}
+	
+	@RequestMapping("/deleteProduct")
+	public boolean deleteProduct(@RequestBody Product product) {
+		List<Product> productList=productRepository.findByName(product.getName());
+		if(productList.isEmpty()) return false;
+		productRepository.delete(product);
+		return true;
+	}
+>>>>>>> master
 }
