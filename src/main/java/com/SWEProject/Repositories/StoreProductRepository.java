@@ -1,6 +1,6 @@
 package com.SWEProject.Repositories;
 
-import java.util.List;
+import java.util.ArrayList;
 
 import org.springframework.data.repository.CrudRepository;
 
@@ -9,8 +9,8 @@ import com.SWEProject.Entities.Store;
 import com.SWEProject.Entities.StoreProducts;
 
 public interface StoreProductRepository extends CrudRepository<StoreProducts, Integer>{
-	List<StoreProducts> findByProductAndStore(Product p, Store s);
-	Iterable<StoreProducts> findAll();
-	List<Product> findByStore(Store store);
-	List<Product> findByid(Integer id);
+	ArrayList<StoreProducts> findByProductAndStore(Product p, Store s);
+	ArrayList<StoreProducts> findAll();
+	ArrayList<StoreProducts> findByStore(Store store);
+	StoreProducts findByid(Integer id);
 }

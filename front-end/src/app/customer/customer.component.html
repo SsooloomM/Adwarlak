@@ -2,9 +2,41 @@
 	<h2> Customer Name: {{ me.name }} </h2>
 </header>
 
-<div class="stores">
+<form name="requestStore" #f1="ngForm" (ngSubmit)="requestStore(f1)">
+	<h3>Request new Store</h3><br />
+	<input type="text" name="name" [(ngModel)]="f1.name" placeholder="Store Name" required />
+	<input type="text" name="location" [(ngModel)]="f1.location" placeholder="Location" required />
+	<div class="type">
+		<h4>Type</h4>
+		<select name="type" [(ngModel)]="f1.storeType">
+			<option value="online">Online</option>
+			<option value="offline">Offline</option>
+		</select>
+	</div>
+	<input type="submit" value="Request"/>
+</form>
 
+<div class="stores">
+	<ul>
+		<h1 class="ul-header"> Stores </h1>
+		<li *ngFor="let s of stores">
+			<span class="store-name"> {{s.name}} </span>
+			<span class="store-type"> {{s.type}} </span>
+			<span class="store-location"> {{s.location}} </span>
+			<span class="owner-name"> {{s.owner.userName}} </span>
+			<button class="show-products" (click)="showProducts(s)"> Show Products </button>
+		<li>
+	</ul>
 </div>
 <div class="products">
-
+	<h1 class="Products"> Products </h1>
+	<li *ngFor="let s of products">
+		<span> name: {{s.product.name}} </span><br />
+		<span> Price: {{s.price}} </span><br />
+		<span> Type: {{s.product.type}} </span><br />
+		<span> Owner: {{s.store.owner.userName}} </span><br />
+		<span> Available: {{s.available}} </span><br />
+		<button class="view" (click)="viewProduct(s)">View</button>
+		<button class="buy" (click)="buyProduct(s)">Buy</button>
+	</li>
 </div>

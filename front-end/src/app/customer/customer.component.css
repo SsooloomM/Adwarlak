@@ -1,5 +1,6 @@
 :host{
-	display: flex;
+    display: flex;
+    flex-wrap: wrap;
 }
 h2{
 	text-align: left;
@@ -7,4 +8,78 @@ h2{
     font-family: monospace;
     font-size: 35px;
     margin-left: 30px;
+}
+
+form{
+	box-shadow: 1px 1px 2px 0px rgba(0, 0, 0, 0.3);
+	color: #fff;
+	margin: 0 30px;
+	padding: 10px 5%;
+	background-color: #25252d;
+	font-family: fantasy;
+    text-align: left;
+    width: 100%;
+}
+
+form h3{
+	font-size: 20px;
+    text-align: center;
+    font-weight: thin;
+}
+form h4{
+	font-size: 15px;
+	display: inline-block;
+    align-self: center;
+    margin-left: 20px;
+    font-weight: thin;
+}
+
+input, select, option{
+	background-color: #394048;
+	border: none;
+	box-shadow: 2px 2px 5px 0px rgba(0, 0, 0, 0.7);
+	font-size: 10px;
+	padding: 10px;
+	outline: none;
+	margin: 10px auto;
+	color: #fff;
+}
+.type{
+	display: inline-block;
+}
+select{
+	margin-left: 5px;
+}
+
+input[type="submit"]{
+	background-color: #e84d87;
+	cursor: pointer;
+}
+
+input[type="submit"]:hover{
+	background-color: #f1377c;	
+}
+
+ul{
+	width: 100%;
+    margin: 10px 30px;
+    list-style-type: none;
+    padding: 10px 5%;
+	background-color: #25252d;
+	color: #fff;
+}
+
+ul-headers{
+	width: 100%;
+	text-align: center;
+}
+
+ul li{
+	margin: 10px 0;
+	border: 1px solid #000;
+}
+
+ul li span{
+	width: 30%;
+	font-size: 20px;
 }

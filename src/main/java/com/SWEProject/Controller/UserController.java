@@ -3,53 +3,23 @@ package com.SWEProject.Controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.SWEProject.Entities.Product;
 import com.SWEProject.Entities.Store;
 import com.SWEProject.Entities.User;
-import com.SWEProject.Repositories.ProductRepository;
-import com.SWEProject.Repositories.StoreRepository;
 import com.SWEProject.Repositories.UserRepository;
 
 
 @RestController
-@CrossOrigin(origins = "http://localhost:8080")
 public class UserController {
-	@Autowired
-	private UserRepository UR;
 	
 	@Autowired
-	private StoreRepository SR;
-	
-	@Autowired
-	private ProductRepository PR;
-	
-	//@Autowired
-	//private CustomerRepository CR;
-	
-//	@Autowired
-//	private ShopOwnerRepository SOR;
-//	
-//	@Autowired
-//	private AdminRepository AR;
-//	
-	
-//	@GetMapping("/Home")
-//	public String Home() {
-//		return "Home";
-//	}
-	
-//	@GetMapping("/error")
-//	public String error() {
-//		return "error";
-//	}
+	private UserRepository userRepository;
 	
 	private User getUser(String name) {
-		List<User> users  = UR.findByUserName(name);
+		List<User> users  = userRepository.findByUserName(name);
 		if(users.isEmpty()) return null;
 		return users.get(0);
 	}
@@ -61,7 +31,7 @@ public class UserController {
 		User user = getUser(input.getUserName());
 		if(user == null) {
 			user = new User(input.getUserName(), input.getPassword());
-			UR.save(user);
+			userRepository.save(user);
 			return user;
 		}
 		return null;
@@ -69,7 +39,7 @@ public class UserController {
 	
 	@RequestMapping("/login")
 	public User login(@RequestBody User u) {
-		
+		System.out.println(u.getUserName());
 		User user = getUser(u.getUserName());
 		if(user == null || !user.getPassword().equals(u.getPassword())) {
 			return null;
@@ -77,17 +47,6 @@ public class UserController {
 		return user;
 	}
 	
-	@RequestMapping("/requestStore")
-	public boolean requestStore(@RequestBody Store store) {
-		
-		List<Store> found = SR.findByName(store.getName());
-		if(!found.isEmpty()) {
-			return false;
-		}
-		store.setOnSystem(false);
-		SR.save(store);
-		return true;
-	}
 	@RequestMapping("/deleteStore")
 	public boolean deleteStore(@RequestBody Store store, User user) {
 		
@@ -96,20 +55,8 @@ public class UserController {
 			return true;
 		}
 		return false;
-	}
+	}	
 	
-	@RequestMapping("/requestProduct")
-	public boolean requestProduct(@RequestBody Product product) {
-		
-		List<Product> found = PR.findByName(product.getName());
-		if(found.isEmpty()) {
-			
-			product.setOnsystem(false);
-			PR.save(product);
-			return true;
-		}
-		return false;
-	}
 	
 //	public Customer addCustomer2(String name, String password) {
 //		List<Customer> found = CR.findByUserName(name);
