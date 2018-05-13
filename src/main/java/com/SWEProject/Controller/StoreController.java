@@ -8,17 +8,18 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.SWEProject.Entities.Product;
 import com.SWEProject.Entities.Store;
-import com.SWEProject.Entities.StoreProducts;
 import com.SWEProject.Entities.User;
-import com.SWEProject.Repositories.ProductRepository;
-import com.SWEProject.Repositories.StoreProductRepository;
 import com.SWEProject.Repositories.StoreRepository;
 import com.SWEProject.Repositories.UserRepository;
 
 class toAddStore{
 	public User user;
+	public Store store;
+}
+
+class toAddCollaborator {
+	public User collaborator;
 	public Store store;
 }
 
@@ -61,15 +62,28 @@ public class StoreController {
 		return stores;
 	}
 	
-	@RequestMapping("/addCollaborator")
-	public boolean addCollaborator(@RequestBody String collaborator,@RequestBody Store store ) {
-		List<User> users = userRepository.findByUserName(collaborator);
-		if(users.isEmpty()) {
-			return false;
-		}
-		store.getCollaborators().add(users.get(0));
+//	@RequestMapping("/addCollaborator")
+//	public boolean addCollaborator(@RequestBody String collaborator,@RequestBody Store store ) {
+//		List<User> users = userRepository.findByUserName(collaborator);
+//		if(users.isEmpty()) {
+//			return false;
+//		}
+//		store.getCollaborators().add(users.get(0));
+//		storeRepository.save(store);
+//		return true;
+//	}
+	
+	public void addCollaborator(@RequestBody toAddCollaborator obj) {
+		
+		User user = obj.collaborator;
+		
+		user.getOtherStores().add(obj.store);
+		userRepository.save(user);
+		
+		Store store = obj.store;
+		
+		store.getCollaborators().add(obj.collaborator);
 		storeRepository.save(store);
-		return true;
 	}
 	
 //	@RequestMapping("/getStoreProducts")
@@ -114,26 +128,5 @@ public class StoreController {
 		userRepository.save(user);
 		storeRepository.delete(store);
 	}
-	
-	@Autowired
-	private ProductRepository PR;
-	
-	@RequestMapping("/showProducts")
-	public List<Product> showProducts() {
-		List<Product> products=(List<Product>) PR.findAll();
-		if(products.size()==0)
-			return null;
-		return products;
-	}
-	
-	@RequestMapping("/deleteProduct")
-	public boolean deleteProduct(@RequestBody Product product) {
-		List<Product> productList=PR.findByName(product.getName());
-		if(productList.isEmpty()) return false;
-		PR.delete(product);
-		return true;
-	}
-
-
 	
 }
